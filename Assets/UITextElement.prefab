@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 165149380129085029}
   - component: {fileID: 3326398922496861420}
   m_Layer: 5
-  m_Name: UIElement
+  m_Name: UITextElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
