@@ -66,13 +66,14 @@
   <ItemGroup>
     <Compile Include="Assets/Scripts/model/HealthModel.cs" />
     <Compile Include="Assets/Scripts/model/ScoreModel.cs" />
-    <Compile Include="Assets/Scripts/Menus.cs" />
     <Compile Include="Assets/Scripts/presenter/HealthPresenter.cs" />
     <Compile Include="Assets/Scripts/presenter/items/OxygenPresenter.cs" />
+    <Compile Include="Assets/Scripts/MainMenu.cs" />
     <Compile Include="Assets/Input System/PlayerActions.cs" />
     <Compile Include="Assets/Scripts/EventManagers.cs" />
     <Compile Include="Assets/Scripts/presenter/ScorePresenter.cs" />
     <Compile Include="Assets/Scripts/presenter/PlayerPresenter.cs" />
+    <Compile Include="Assets/Scripts/InGameMenus.cs" />
     <Compile Include="Assets/Scripts/GameInformation.cs" />
   </ItemGroup>
   <ItemGroup>

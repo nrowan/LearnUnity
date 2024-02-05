@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public static class ACTIVEMENU
@@ -9,22 +9,39 @@ public static class ACTIVEMENU
     public static string GAME_OVER = "GameOver";
     public static string DEAD = "Dead";
 }
-public class Menus : MonoBehaviour
+public class InGameMenus : MonoBehaviour
 {
     public GameObject MenuOverlay;
     private GameObject ActiveOverlay;
     private Button ActiveButton;
+    private PlayerActions _playerActions;
+
+    public bool Paused = false;
 
     private void Start()
     {
         HideMenu();
+        _playerActions.Player_Map.Pause.performed += _ => Pause();
+    }
+    void Awake()
+    {
+        _playerActions = new PlayerActions();
+    }
+    private void OnEnable()
+    {
+        _playerActions.Player_Map.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerActions.Player_Map.Disable();
     }
     private void HandleMenuClick()
     {
         switch (ActiveButton.gameObject.name)
         {
-            case "Unpause":
-                Unpause();
+            case "Resume":
+                Resume();
                 break;
             case "MainMenu":
                 MainMenu();
@@ -56,7 +73,8 @@ public class Menus : MonoBehaviour
             Debug.Log(menu);
             for (int i = 0; i < MenuOverlay.transform.childCount; i++)
             {
-                if(MenuOverlay.transform.GetChild(i).gameObject.name == menu) {
+                if (MenuOverlay.transform.GetChild(i).gameObject.name == menu)
+                {
                     ActiveOverlay = MenuOverlay.transform.GetChild(i).gameObject;
                 }
             }
@@ -87,15 +105,24 @@ public class Menus : MonoBehaviour
     private void MainMenu()
     {
         HideMenu();
-        Debug.Log("Go to main menu");
+        SceneManager.LoadScene(0);
     }
     public void Pause()
     {
-        SetActiveMenu(ACTIVEMENU.PAUSE);
-        Time.timeScale = 0;
+        if (!Paused)
+        {
+            Paused = true;
+            SetActiveMenu(ACTIVEMENU.PAUSE);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Resume();
+        }
     }
-    private void Unpause()
+    private void Resume()
     {
+        Paused = false;
         HideMenu();
         Time.timeScale = 1;
     }

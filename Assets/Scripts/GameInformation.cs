@@ -7,13 +7,13 @@ public class GameInformation : MonoBehaviour
     public static int Lives { get; set; } = 3;
     public static bool GameOver { get; set; } = false;
 
-    private Menus _menus;
+    private InGameMenus _menus;
 
     private TextMeshProUGUI _text;
 
     void Start()
     {
-        _menus = FindObjectOfType<Menus>();
+        _menus = FindObjectOfType<InGameMenus>();
         _text = FindObjectsOfType<TextMeshProUGUI>().FirstOrDefault(t => t.name == "LivesText");
         _text.text = Lives.ToString();
     }
