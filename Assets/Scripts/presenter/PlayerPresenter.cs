@@ -12,6 +12,7 @@ public class PlayerPresenter : MonoBehaviour
     private float _vSpeed = 0f; // Current vertical speed after jumping
     private float _jumpSpeed = 11.0f;
     private float _jumpModifier = 1.3f;
+    private bool _wasRunDuringJump = false;
     private float _gravity = 9.8f;
     private float _gravityAmplifier = 2.1f;
 
@@ -48,7 +49,7 @@ public class PlayerPresenter : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             
-            var newSpeed = running && _characterController.isGrounded ? _run * _speed : _speed;
+            var newSpeed = running && _characterController.isGrounded ? _run * _speed : _wasRunDuringJump ? _speed * _jumpModifier : _speed;
             moveDir.x = moveDir.x * newSpeed;
             moveDir.z = moveDir.z * newSpeed;
             moveDir.y = _vSpeed;
@@ -65,9 +66,11 @@ public class PlayerPresenter : MonoBehaviour
         if (_characterController.isGrounded)
         {
             _vSpeed = 0;
+            _wasRunDuringJump = false;
             if (_playerActions.Player_Map.Jump.IsPressed())
             {
                 _vSpeed = running ? _jumpModifier * _jumpSpeed : _jumpSpeed;
+                _wasRunDuringJump = running;
             }
         }
         _vSpeed -= _gravity * _gravityAmplifier * Time.deltaTime;
