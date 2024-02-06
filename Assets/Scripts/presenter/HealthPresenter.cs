@@ -1,9 +1,12 @@
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthPresenter : MonoBehaviour
 {
+    private InGameMenus _menus;
+    private TextMeshProUGUI _text;
     private HealthModel _healthModel;
     private Slider _healthSlider;
 
@@ -23,6 +26,10 @@ public class HealthPresenter : MonoBehaviour
 
     private void Start()
     {
+        _menus = FindObjectOfType<InGameMenus>();
+        _text = FindObjectsOfType<TextMeshProUGUI>().FirstOrDefault(t => t.name == "LivesText");
+        _text.text = GameInformation.Lives.ToString();
+
         OnHealthChanged(_healthModel.CurrentHealth, _healthModel.MaxHealth);
     }
 
@@ -32,6 +39,7 @@ public class HealthPresenter : MonoBehaviour
         EventManager.OnDamageTaken += DamageTaken;
         EventManager.OnHealthReceived += HealthReceived;
         EventManager.OnNewLife += OnNewLife;
+        EventManager.OnLifeLost += OnLifeLost;
     }
 
     private void OnDisable()
@@ -39,10 +47,11 @@ public class HealthPresenter : MonoBehaviour
         EventManager.OnHealthChanged -= OnHealthChanged;
         EventManager.OnDamageTaken -= DamageTaken;
         EventManager.OnHealthReceived -= HealthReceived;
-        EventManager.OnNewLife += OnNewLife;
+        EventManager.OnNewLife -= OnNewLife;
+        EventManager.OnLifeLost -= OnLifeLost;
     }
 
-    private void DamageTaken(float damage) 
+    private void DamageTaken(float damage)
     {
         _healthModel.DamageTaken(damage);
     }
@@ -60,11 +69,30 @@ public class HealthPresenter : MonoBehaviour
             }
         }
     }
-    private void HealthReceived(float health) 
+    private void HealthReceived(float health)
     {
         _healthModel.HealthReceived(health);
     }
-    private void OnNewLife() {
+    private void OnNewLife()
+    {
         _healthModel.ResetHealth();
+    }
+
+    private void OnLifeLost()
+    {
+        if (!GameInformation.GameOver)
+        {
+            GameInformation.Lives--;
+            if (GameInformation.Lives == 0)
+            {
+                GameInformation.GameOver = true;
+                _menus.ShowGameOver();
+            }
+            else
+            {
+                _text.text = GameInformation.Lives.ToString();
+                _menus.ShowDead();
+            }
+        }
     }
 }

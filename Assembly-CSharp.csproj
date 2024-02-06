@@ -64,18 +64,20 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/2022.3.19f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/LevelDetails/Level2.cs" />
     <Compile Include="Assets/Scripts/model/HealthModel.cs" />
     <Compile Include="Assets/Scripts/model/ScoreModel.cs" />
     <Compile Include="Assets/Scripts/presenter/HealthPresenter.cs" />
     <Compile Include="Assets/Scripts/presenter/items/OxygenPresenter.cs" />
+    <Compile Include="Assets/Scripts/LevelDetails/Level1.cs" />
     <Compile Include="Assets/Scripts/MainMenu.cs" />
     <Compile Include="Assets/Input System/PlayerActions.cs" />
     <Compile Include="Assets/Scripts/EventManagers.cs" />
     <Compile Include="Assets/Scripts/presenter/ScorePresenter.cs" />
     <Compile Include="Assets/Scripts/presenter/PlayerPresenter.cs" />
     <Compile Include="Assets/Scripts/InGameMenus.cs" />
+    <Compile Include="Assets/Scripts/LevelDetails/OutsideLevel.cs" />
     <Compile Include="Assets/Scripts/GameInformation.cs" />
-    <Compile Include="Assets/Scripts/LevelInformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

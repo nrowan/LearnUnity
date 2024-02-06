@@ -1,12 +1,7 @@
 using UnityEngine;
-using System.Collections;
-
 public class HealthModel : MonoBehaviour
 {
-    private IEnumerator coroutine;
     private float _fullHealth = 100;
-    private int _healthDrain = 1;
-    private int _drainSpeed = 1;
     private float _currentHealth;
 
     public float CurrentHealth
@@ -43,24 +38,8 @@ public class HealthModel : MonoBehaviour
 
     public void ResetHealth()
     {
-        if (coroutine != null)
-        {
-            StopCoroutine(coroutine);
-        }
         CurrentHealth = _fullHealth;
-        coroutine = HealthDrain();
-        StartCoroutine(coroutine);
     }
-
-    public IEnumerator HealthDrain()
-    {
-        while (true)
-        {
-            DamageTaken(_healthDrain);
-            yield return new WaitForSeconds(_drainSpeed);
-        }
-    }
-
     public void DamageTaken(float damage)
     {
         CurrentHealth -= damage;
