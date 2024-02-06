@@ -38,7 +38,6 @@ public class HealthModel : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         ResetHealth();
     }
 

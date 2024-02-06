@@ -75,6 +75,7 @@
     <Compile Include="Assets/Scripts/presenter/PlayerPresenter.cs" />
     <Compile Include="Assets/Scripts/InGameMenus.cs" />
     <Compile Include="Assets/Scripts/GameInformation.cs" />
+    <Compile Include="Assets/Scripts/LevelInformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

@@ -2,29 +2,25 @@ using UnityEngine;
 
 public class PlayerPresenter : MonoBehaviour
 {
-    public Transform cam;
+    private Camera _cam;
     private CharacterController _characterController;
     private float _speed = 6.0f;
     private float _run = 3.0f;
+    private float _runJumpModifier = 1.8f;
     private float _turnSmoothTime = 0.1f;
     private float _turnSmoothVelocity;
-    
+
     private float _vSpeed = 0f; // Current vertical speed after jumping
-    private float _jumpSpeed = 11.0f;
+    private float _jumpSpeed = 12.0f;
     private float _jumpModifier = 1.3f;
     private bool _wasRunDuringJump = false;
     private float _gravity = 9.8f;
-    private float _gravityAmplifier = 2.1f;
-
-
+    private float _gravityAmplifier = 3.1f;
     private PlayerActions _playerActions;
-
-    void Start()
-    {
-        _characterController = GetComponent<CharacterController>();
-    }
     void Awake()
     {
+        _characterController = GetComponent<CharacterController>();
+        _cam = GameObject.FindObjectOfType<Camera>();
         _playerActions = new PlayerActions();
     }
     private void OnEnable()
@@ -44,16 +40,18 @@ public class PlayerPresenter : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             // Found online black magic for finding x, y velocity and have camera follow
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _cam.gameObject.transform.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            
-            var newSpeed = running && _characterController.isGrounded ? _run * _speed : _wasRunDuringJump ? _speed * _jumpModifier : _speed;
-            moveDir.x = moveDir.x * newSpeed;
-            moveDir.z = moveDir.z * newSpeed;
-            moveDir.y = _vSpeed;
-            _characterController.Move(moveDir * Time.deltaTime);
+            if (!float.IsNaN(angle))
+            {
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                var newSpeed = running && _characterController.isGrounded ? _run * _speed : _wasRunDuringJump ? _speed * _runJumpModifier : _speed;
+                moveDir.x = moveDir.x * newSpeed;
+                moveDir.z = moveDir.z * newSpeed;
+                moveDir.y = _vSpeed;
+                _characterController.Move(moveDir * Time.deltaTime);
+            }
         }
         else
         {

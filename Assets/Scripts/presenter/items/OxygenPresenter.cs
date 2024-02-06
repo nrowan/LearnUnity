@@ -12,6 +12,7 @@ public class OxygenPresenter : MonoBehaviour
                 EventManager.RaiseOnScoreUpdated(_value);
                 EventManager.OnHealthReceived(_healthBoost);
                 Destroy(gameObject);
+                EventManager.RaiseOnLevelComplete(1);
                 break;
             default:
                 break;

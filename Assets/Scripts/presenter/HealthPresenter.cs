@@ -65,7 +65,6 @@ public class HealthPresenter : MonoBehaviour
         _healthModel.HealthReceived(health);
     }
     private void OnNewLife() {
-        Debug.Log("New Life");
         _healthModel.ResetHealth();
     }
 }

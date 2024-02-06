@@ -8,10 +8,11 @@ public static class ACTIVEMENU
     public static string PAUSE = "Pause";
     public static string GAME_OVER = "GameOver";
     public static string DEAD = "Dead";
+    public static string LEVEL_COMPLETE = "LevelComplete";
 }
 public class InGameMenus : MonoBehaviour
 {
-    public GameObject MenuOverlay;
+    private GameObject MenuOverlay;
     private GameObject ActiveOverlay;
     private Button ActiveButton;
     private PlayerActions _playerActions;
@@ -20,6 +21,13 @@ public class InGameMenus : MonoBehaviour
 
     private void Start()
     {
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            if (gameObject.transform.GetChild(i).name == "MenuOverlay")
+            {
+                MenuOverlay = gameObject.transform.GetChild(i).gameObject;
+            }
+        }
         HideMenu();
         _playerActions.Player_Map.Pause.performed += _ => Pause();
     }
@@ -30,12 +38,15 @@ public class InGameMenus : MonoBehaviour
     private void OnEnable()
     {
         _playerActions.Player_Map.Enable();
+        EventManager.OnLevelComplete += LevelComplete;
     }
 
     private void OnDisable()
     {
         _playerActions.Player_Map.Disable();
+        EventManager.OnLevelComplete -= LevelComplete;
     }
+
     private void HandleMenuClick()
     {
         switch (ActiveButton.gameObject.name)
@@ -48,6 +59,9 @@ public class InGameMenus : MonoBehaviour
                 break;
             case "RestartLevel":
                 RestartLevel();
+                break;
+            case "NextLevel":
+                NextLevel();
                 break;
             default:
                 break;
@@ -70,7 +84,6 @@ public class InGameMenus : MonoBehaviour
     {
         try
         {
-            Debug.Log(menu);
             for (int i = 0; i < MenuOverlay.transform.childCount; i++)
             {
                 if (MenuOverlay.transform.GetChild(i).gameObject.name == menu)
@@ -128,7 +141,6 @@ public class InGameMenus : MonoBehaviour
     }
     public void ShowDead()
     {
-        Debug.Log("hello dead");
         SetActiveMenu(ACTIVEMENU.DEAD);
         Time.timeScale = 0;
     }
@@ -137,5 +149,15 @@ public class InGameMenus : MonoBehaviour
         HideMenu();
         EventManager.RaiseOnNewLife();
         Time.timeScale = 1;
+    }
+    private void NextLevel()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    private void LevelComplete(int level)
+    {
+        SetActiveMenu(ACTIVEMENU.LEVEL_COMPLETE);
+        Time.timeScale = 0;
     }
 }

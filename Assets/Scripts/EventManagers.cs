@@ -2,8 +2,10 @@ using UnityEngine.Events;
 
 public static class EventManager
 {
+    public static UnityAction<int> OnLevelComplete;
+    public static void RaiseOnLevelComplete(int level) => OnLevelComplete?.Invoke(level);
     public static UnityAction<float, float> OnHealthChanged;
-    public static void RaiseOnHealthChanged(float m_currentHealth, float m_fullHealth) => OnHealthChanged?.Invoke(m_currentHealth, m_fullHealth);
+    public static void RaiseOnHealthChanged(float currentHealth, float fullHealth) => OnHealthChanged?.Invoke(currentHealth, fullHealth);
     public static UnityAction<float> OnDamageTaken;
     public static void RaiseOnDamageTaken(float damage) => OnDamageTaken?.Invoke(damage);
     public static UnityAction<float> OnHealthReceived;
