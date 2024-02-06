@@ -5,7 +5,7 @@ public class HealthModel : MonoBehaviour
 {
     private IEnumerator coroutine;
     private float _fullHealth = 100;
-    private int _healthDrain = 10;
+    private int _healthDrain = 1;
     private int _drainSpeed = 1;
     private float _currentHealth;
 
