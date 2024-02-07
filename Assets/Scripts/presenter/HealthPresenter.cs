@@ -1,3 +1,4 @@
+using System.Data;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -9,11 +10,15 @@ public class HealthPresenter : MonoBehaviour
     private TextMeshProUGUI _text;
     private HealthModel _healthModel;
     private Slider _healthSlider;
+    private Image _sliderFill;
+    private Color _sliderFillOC;
 
     private void Awake()
     {
         _healthSlider = gameObject.GetComponentInChildren<Slider>();
         _healthModel = FindObjectOfType<HealthModel>();
+        _sliderFill = _healthSlider.GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
+        _sliderFillOC = _sliderFill.color;
 
         if (_healthModel == null)
         {
@@ -60,13 +65,17 @@ public class HealthPresenter : MonoBehaviour
     {
         var percentHealth = currentHealth / maxHealth;
         _healthSlider.value = percentHealth;
+        
         if (percentHealth < .5)
         {
-            var fill = _healthSlider.GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
-            if (fill != null)
+            if (_sliderFill != null)
             {
-                fill.color = Color.red;
+                _sliderFill.color = Color.red;
             }
+        }
+        else
+        {
+            _sliderFill.color = _sliderFillOC;
         }
     }
     private void HealthReceived(float health)
