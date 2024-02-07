@@ -67,6 +67,7 @@
     <Compile Include="Assets/Scripts/LevelDetails/Level2.cs" />
     <Compile Include="Assets/Scripts/model/HealthModel.cs" />
     <Compile Include="Assets/Scripts/model/ScoreModel.cs" />
+    <Compile Include="Assets/Scripts/LevelDetails/EndLevel.cs" />
     <Compile Include="Assets/Scripts/presenter/HealthPresenter.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/BaseLevel.cs" />
     <Compile Include="Assets/Scripts/presenter/items/OxygenPresenter.cs" />

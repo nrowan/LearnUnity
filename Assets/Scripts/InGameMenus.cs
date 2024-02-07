@@ -155,7 +155,7 @@ public class InGameMenus : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    private void LevelComplete(int level)
+    private void LevelComplete()
     {
         SetActiveMenu(ACTIVEMENU.LEVEL_COMPLETE);
         Time.timeScale = 0;
