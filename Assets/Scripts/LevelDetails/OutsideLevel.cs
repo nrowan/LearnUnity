@@ -3,15 +3,21 @@ using System.Collections;
 public class OutsideLevel : MonoBehaviour
 {
     private IEnumerator coroutine;
-    private int _healthDrain = 10;
-    private int _drainSpeed = 1;
+    int _healthDrain { get; set; } = 1;
+    int _drainSpeed { get; set; } = 1;
+    public OutsideLevel() { }
+    public OutsideLevel(int? drainSpeed, int? healthDrain)
+    {
+        _drainSpeed = drainSpeed ?? _drainSpeed;
+        _healthDrain = healthDrain ?? _healthDrain;
+    }
 
     void Start()
     {
         coroutine = HealthDrain();
         StartCoroutine(coroutine);
     }
-    public IEnumerator HealthDrain()
+    IEnumerator HealthDrain()
     {
         while (true)
         {
