@@ -134,18 +134,18 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void HandleRotation()
     {
-            float targetAngle = Mathf.Atan2(_currentMovementInput.x, _currentMovementInput.z) * Mathf.Rad2Deg + _cam.gameObject.transform.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
-            if (!float.IsNaN(angle))
-            {
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                _camMoveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            }
+        float targetAngle = Mathf.Atan2(_currentMovementInput.x, _currentMovementInput.z) * Mathf.Rad2Deg + _cam.gameObject.transform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
+        if (!float.IsNaN(angle))
+        {
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            _camMoveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        }
     }
     void OnMovementInput(InputAction.CallbackContext context)
     {
         _currentMovementInput = context.ReadValue<Vector3>().normalized;
-            _isMovementPressed = _currentMovementInput.x != _zero || _currentMovementInput.z != _zero;
+        _isMovementPressed = _currentMovementInput.x != _zero || _currentMovementInput.z != _zero;
     }
     void OnJump(InputAction.CallbackContext context)
     {
