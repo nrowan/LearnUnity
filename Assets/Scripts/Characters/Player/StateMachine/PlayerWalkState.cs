@@ -1,10 +1,9 @@
+using UnityEngine;
+
 public class PlayerWalkState : PlayerBaseState
 {
     public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-    : base(currentContext, playerStateFactory)
-    {
-
-    }
+    : base(currentContext, playerStateFactory) { }
     public override void EnterState()
     {
         //Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
@@ -12,10 +11,11 @@ public class PlayerWalkState : PlayerBaseState
     }
     public override void UpdateState()
     {
+        Ctx.AppliedMovementX = Ctx.CamMoveDirection.x * Ctx.WalkSpeed;
+        Ctx.AppliedMovementZ = Ctx.CamMoveDirection.z * Ctx.WalkSpeed;
         CheckSwitchStates();
-        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.WalkSpeed;
-        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.z * Ctx.WalkSpeed;
     }
+
     public override void ExitState() { }
     public override void CheckSwitchStates()
     {
@@ -28,5 +28,5 @@ public class PlayerWalkState : PlayerBaseState
             SwitchState(Factory.Run());
         }
     }
-    public override void InitializeSubState() {  }
+    public override void InitializeSubState() { }
 }

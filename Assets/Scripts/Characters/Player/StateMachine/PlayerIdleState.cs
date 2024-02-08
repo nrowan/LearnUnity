@@ -1,10 +1,9 @@
+using System.Diagnostics;
+
 public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-    : base(currentContext, playerStateFactory)
-    {
-
-    }
+    : base(currentContext, playerStateFactory) { }
     public override void EnterState()
     {
         //Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);

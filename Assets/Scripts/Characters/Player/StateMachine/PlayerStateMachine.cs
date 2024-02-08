@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    private Camera _cam;
+    private Vector3 _camMoveDirection;
     // declare reference variables
     private CharacterController _characterController;
     Animator _animator;
@@ -15,20 +17,20 @@ public class PlayerStateMachine : MonoBehaviour
 
     // variables to store player input values
     Vector3 _currentMovementInput;
-    Vector3 _currentMovement;
+    float _currentMovementY;
     Vector3 _appliedMovement;
     bool _isMovementPressed;
     bool _isRunPressed;
 
     // constants
     float _walkSpeed = 6.0f;
-    float _rotationFactorPerFrame = 15.0f;
-    float _runMultiplier = 10.0f;
+    float _runMultiplier = 40.0f;
+    private float _turnSmoothTime = 0.1f;
+    private float _turnSmoothVelocity;
     int _zero = 0;
 
     // gravity variables
     float _gravity = -9.8f;
-    float _groundedGravity = -.05f;
 
     // Jumping Variables
     bool _isJumpPressed = false;
@@ -48,6 +50,7 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerBaseState _currentState;
     PlayerStateFactory _states;
 
+    public Vector3 CamMoveDirection { get { return _camMoveDirection; } }
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public CharacterController CharacterController { get { return _characterController; } }
     public Animator Animator { get { return _animator; } }
@@ -56,6 +59,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public float WalkSpeed { get { return _walkSpeed; } }
     public float RunMultiplier { get { return _runMultiplier; } }
+    public float Gravity { get { return _gravity; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
     public int IsRunningHash { get { return _isRunningHash; } }
@@ -66,15 +70,14 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
-    public float CurrentMovemntY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
+    public float CurrentMovementY { get { return _currentMovementY; } set { _currentMovementY = value; } }
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
     public float AppliedMovementX { get { return _appliedMovement.x; } set { _appliedMovement.x = value; } }
     public float AppliedMovementZ { get { return _appliedMovement.z; } set { _appliedMovement.z = value; } }
-    public Vector3 CurrentMovementInput { get { return _currentMovementInput; } }
-    public float GroundedGravity { get { return _groundedGravity; } }
 
     void Awake()
     {
+        _cam = FindObjectOfType<Camera>();
         _playerActions = new PlayerActions();
         _characterController = GetComponent<CharacterController>();
         //_animator = GetComponent<Animator>();
@@ -103,7 +106,7 @@ public class PlayerStateMachine : MonoBehaviour
     void SetJumpVariables()
     {
         float timeToApex = _maxJumpTime / 2;
-        _gravity = (-2 * _maxJumpHeight) / Mathf.Pow(timeToApex, 2);
+        float initialGravity = (-2 * _maxJumpHeight) / Mathf.Pow(timeToApex, 2);
         _initialJumpVelocity = (2 * _maxJumpHeight) / timeToApex;
         float secondJumpGravity = (-2 * (_maxJumpHeight + 2)) / Mathf.Pow((timeToApex * 1.25f), 2);
         float secondJumpInitialVelocity = (2 * (_maxJumpHeight + 2)) / (timeToApex * 1.25f);
@@ -114,15 +117,14 @@ public class PlayerStateMachine : MonoBehaviour
         _initialJumpVelocities.Add(2, secondJumpInitialVelocity);
         _initialJumpVelocities.Add(3, thirdJumpInitialVelocity);
 
-        _jumpGravities.Add(0, _gravity);
-        _jumpGravities.Add(1, _gravity);
+        _jumpGravities.Add(0, initialGravity);
+        _jumpGravities.Add(1, initialGravity);
         _jumpGravities.Add(2, secondJumpGravity);
         _jumpGravities.Add(3, thirdJumpGravity);
     }
-
     private void Start()
     {
-
+        _characterController.Move(_appliedMovement * Time.deltaTime);
     }
     private void Update()
     {
@@ -132,22 +134,18 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void HandleRotation()
     {
-        Vector3 positionToLookAt;
-        positionToLookAt.x = _currentMovementInput.x;
-        positionToLookAt.y = _zero;
-        positionToLookAt.z = _currentMovementInput.z;
-
-        Quaternion currentRotation = transform.rotation;
-        if (_isMovementPressed)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _rotationFactorPerFrame * Time.deltaTime);
-        }
+            float targetAngle = Mathf.Atan2(_currentMovementInput.x, _currentMovementInput.z) * Mathf.Rad2Deg + _cam.gameObject.transform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
+            if (!float.IsNaN(angle))
+            {
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                _camMoveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            }
     }
     void OnMovementInput(InputAction.CallbackContext context)
     {
-        _currentMovementInput = context.ReadValue<Vector3>();
-        _isMovementPressed = _currentMovementInput.x != _zero || _currentMovementInput.z != _zero;
+        _currentMovementInput = context.ReadValue<Vector3>().normalized;
+            _isMovementPressed = _currentMovementInput.x != _zero || _currentMovementInput.z != _zero;
     }
     void OnJump(InputAction.CallbackContext context)
     {

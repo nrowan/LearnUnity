@@ -1,5 +1,5 @@
 using UnityEngine;
-public class HealthModel : MonoBehaviour
+public class PlayerHealthModel : MonoBehaviour
 {
     private float _fullHealth = 100;
     private float _currentHealth;

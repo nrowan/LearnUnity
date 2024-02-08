@@ -66,7 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets/Scripts/LevelDetails/Level2.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerStateFactory.cs" />
-    <Compile Include="Assets/Scripts/model/HealthModel.cs" />
+    <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerFallingState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerBaseState.cs" />
     <Compile Include="Assets/Scripts/model/ScoreModel.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/EndLevel.cs" />
@@ -77,14 +77,16 @@
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerIdleState.cs" />
     <Compile Include="Assets/Scripts/presenter/items/OxygenPresenter.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/Level1.cs" />
+    <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerFallState.cs" />
     <Compile Include="Assets/Scripts/MainMenu.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerWalkState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerRunState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerStateMachine.cs" />
     <Compile Include="Assets/Input System/PlayerActions.cs" />
+    <Compile Include="Assets/Scripts/Characters/Player/StateMachine/IRootState.cs" />
     <Compile Include="Assets/Scripts/EventManagers.cs" />
     <Compile Include="Assets/Scripts/presenter/ScorePresenter.cs" />
-    <Compile Include="Assets/Scripts/presenter/PlayerPresenter.cs" />
+    <Compile Include="Assets/Scripts/Characters/Player/PlayerHealthModel.cs" />
     <Compile Include="Assets/Scripts/InGameMenus.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/OutsideLevel.cs" />
     <Compile Include="Assets/Scripts/GameInformation.cs" />

@@ -8,7 +8,7 @@ public class HealthPresenter : MonoBehaviour
 {
     private InGameMenus _menus;
     private TextMeshProUGUI _text;
-    private HealthModel _healthModel;
+    private PlayerHealthModel _healthModel;
     private Slider _healthSlider;
     private Image _sliderFill;
     private Color _sliderFillOC;
@@ -16,7 +16,7 @@ public class HealthPresenter : MonoBehaviour
     private void Awake()
     {
         _healthSlider = gameObject.GetComponentInChildren<Slider>();
-        _healthModel = FindObjectOfType<HealthModel>();
+        _healthModel = FindObjectOfType<PlayerHealthModel>();
         _sliderFill = _healthSlider.GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
         _sliderFillOC = _sliderFill.color;
 

@@ -2,8 +2,9 @@ public abstract class PlayerBaseState
 {
     private bool _isRootState = false;
     protected bool IsRootState { get { return _isRootState; } set { _isRootState = value; } }
+    protected PlayerBaseState CurrentSubState { get { return _currentSubState; } }
     private PlayerStateMachine _ctx;
-    protected PlayerStateMachine Ctx { get { return _ctx; }}
+    protected PlayerStateMachine Ctx { get { return _ctx; } }
     private PlayerStateFactory _factory;
     protected PlayerStateFactory Factory { get { return _factory; } }
     private PlayerBaseState _currentSubState;
@@ -21,6 +22,7 @@ public abstract class PlayerBaseState
     public abstract void InitializeSubState();
     public void UpdateStates()
     {
+        //UnityEngine.Debug.Log(this);
         UpdateState();
         if (_currentSubState != null)
         {
@@ -57,5 +59,6 @@ public abstract class PlayerBaseState
     {
         _currentSubState = newSubState;
         newSubState.SetSuperState(this);
+        _currentSubState.EnterState();
     }
 }
