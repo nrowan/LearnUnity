@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)

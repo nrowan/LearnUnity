@@ -9,8 +9,9 @@ public class PlayerRunState : PlayerBaseState
     }
     public override void UpdateState()
     {
-        Ctx.AppliedMovementX = Ctx.CamMoveDirection.x * Ctx.RunMultiplier;
-        Ctx.AppliedMovementZ = Ctx.CamMoveDirection.z * Ctx.RunMultiplier;
+        float speed = Ctx.WalkSpeed + Ctx.RunSpeed;
+        Ctx.AppliedMovementX = Ctx.CamMoveDirection.x * speed;
+        Ctx.AppliedMovementZ = Ctx.CamMoveDirection.z * speed;
         CheckSwitchStates();
     }
     public override void ExitState() { }

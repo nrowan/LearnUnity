@@ -8,8 +8,8 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     }
     public void HandleGravity()
     {
-        Ctx.CurrentMovementY = Ctx.Gravity;
-        Ctx.AppliedMovementY = Ctx.Gravity;
+        Ctx.CurrentMovementY = GravityHelper.Gravity;
+        Ctx.AppliedMovementY = GravityHelper.Gravity;
     }
     public override void EnterState()
     {

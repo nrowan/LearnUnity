@@ -6,8 +6,10 @@ public class PlayerStateMachine : MonoBehaviour
 {
     private Camera _cam;
     private Vector3 _camMoveDirection;
+    public Vector3 CamMoveDirection { get { return _camMoveDirection; } }
     // declare reference variables
     private CharacterController _characterController;
+    public CharacterController CharacterController { get { return _characterController; } }
     Animator _animator;
     PlayerActions _playerActions;
 
@@ -24,13 +26,10 @@ public class PlayerStateMachine : MonoBehaviour
 
     // constants
     float _walkSpeed = 6.0f;
-    float _runMultiplier = 40.0f;
+    float _runSpeed = 8.0f;
     private float _turnSmoothTime = 0.1f;
     private float _turnSmoothVelocity;
     int _zero = 0;
-
-    // gravity variables
-    float _gravity = -9.8f;
 
     // Jumping Variables
     bool _isJumpPressed = false;
@@ -49,17 +48,14 @@ public class PlayerStateMachine : MonoBehaviour
     // state variables
     PlayerBaseState _currentState;
     PlayerStateFactory _states;
-
-    public Vector3 CamMoveDirection { get { return _camMoveDirection; } }
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
-    public CharacterController CharacterController { get { return _characterController; } }
+
     public Animator Animator { get { return _animator; } }
     public Coroutine CurrentJumpResetRoutine { get { return _currentJumpResetRoutine; } set { _currentJumpResetRoutine = value; } }
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public float WalkSpeed { get { return _walkSpeed; } }
-    public float RunMultiplier { get { return _runMultiplier; } }
-    public float Gravity { get { return _gravity; } }
+    public float RunSpeed { get { return _runSpeed; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
     public int IsRunningHash { get { return _isRunningHash; } }
