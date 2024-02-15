@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
-    float _delay = 5.0f;
+    float _delay = 10.0f;
     float _delayDeadline = 0f;
     public EnemyIdleState(EnemyStateMachine currentContext, EnemyStateFactory enemyStateFactory)
     : base(currentContext, enemyStateFactory) { }

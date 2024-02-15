@@ -1,7 +1,5 @@
 
 
-using TMPro;
-
 public class EnemyGroundedState : EnemyBaseState, IRootState
 {
     public EnemyGroundedState(EnemyStateMachine currentContext, EnemyStateFactory enemyStateFactory)

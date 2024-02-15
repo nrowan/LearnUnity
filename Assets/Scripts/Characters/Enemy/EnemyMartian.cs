@@ -12,7 +12,7 @@ public class EnemyMartian : MonoBehaviour
     public float _patrolingSpeed = 10.0f;
     public float _patrolRadius = 10.0f;
     public float _awareDistance = 50.0f;
-    public float _visionDistance = 10.0f;
+    public float _visionDistance = 5.0f;
     public float _attackDistance = 6.0f;
 
     void Awake()

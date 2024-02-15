@@ -6,6 +6,7 @@ enum EnemyStates
     idle,
     attack,
     chase,
+    hunt,
     grounded,
 }
 public class EnemyStateFactory
@@ -18,6 +19,7 @@ public class EnemyStateFactory
         _states.Add(EnemyStates.patroling, new EnemyPatrolingState(_context, this));
         _states.Add(EnemyStates.idle, new EnemyIdleState(_context, this));
         _states.Add(EnemyStates.chase, new EnemyChaseState(_context, this));
+        _states.Add(EnemyStates.hunt, new EnemyHuntState(_context, this));
         _states.Add(EnemyStates.attack, new EnemyAttackState(_context, this));
         _states.Add(EnemyStates.grounded, new EnemyGroundedState(_context, this));
     }
@@ -32,6 +34,10 @@ public class EnemyStateFactory
     public EnemyBaseState Chase()
     {
         return _states[EnemyStates.chase];
+    }
+    public EnemyBaseState Hunt()
+    {
+        return _states[EnemyStates.hunt];
     }
     public EnemyBaseState Grounded()
     {

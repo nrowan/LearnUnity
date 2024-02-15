@@ -22,7 +22,6 @@ public abstract class PlayerBaseState
     public abstract void InitializeSubState();
     public void UpdateStates()
     {
-        //UnityEngine.Debug.Log(this);
         UpdateState();
         if (_currentSubState != null)
         {

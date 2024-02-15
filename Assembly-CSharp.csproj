@@ -69,6 +69,7 @@
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyIdleState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerFallingState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyAttackState.cs" />
+    <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyHuntState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyBaseState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerBaseState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyGroundedState.cs" />

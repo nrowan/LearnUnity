@@ -26,6 +26,7 @@ public class EnemyAttackState : EnemyBaseState
         else
         {
             Ctx.IsAttacking = false;
+            Ctx.IsChasing = true;
         }
 
         CheckSwitchStates();
@@ -44,11 +45,11 @@ public class EnemyAttackState : EnemyBaseState
         {
             SwitchState(Factory.Chase());
         }
-        if (!Ctx.IsChasing && !Ctx.IsAttacking && !Ctx.DestinationSet)
+        if (!Ctx.IsAttacking && !Ctx.DestinationSet)
         {
             SwitchState(Factory.Idle());
         }
-        else if (!Ctx.IsChasing && !Ctx.IsAttacking && Ctx.DestinationSet)
+        else if (!Ctx.IsAttacking && Ctx.DestinationSet)
         {
             SwitchState(Factory.Patroling());
         }

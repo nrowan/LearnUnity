@@ -38,6 +38,7 @@ public class EnemyChaseState : EnemyBaseState
         {
             Ctx.IsChasing = false;
             Ctx.Agent.isStopped = true;
+            Ctx.IsHunting = true;
         }
 
         CheckSwitchStates();
@@ -49,7 +50,11 @@ public class EnemyChaseState : EnemyBaseState
         {
             SwitchState(Factory.Attack());
         }
-        if (!Ctx.IsChasing && !Ctx.IsAttacking && !Ctx.DestinationSet)
+        else if (Ctx.IsHunting)
+        {
+            SwitchState(Factory.Hunt());
+        }
+        else if (!Ctx.IsChasing && !Ctx.IsAttacking && !Ctx.DestinationSet)
         {
             SwitchState(Factory.Idle());
         }
