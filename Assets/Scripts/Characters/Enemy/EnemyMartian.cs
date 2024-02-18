@@ -6,14 +6,14 @@ public class EnemyMartian : MonoBehaviour
     EnemyStateMachine _stateMachine;
     Transform _player;
     NavMeshAgent _agent;
-    public float _rotationSpeed = 200.0f;
-    public float _walkSpeed = 5.0f;
-    public float _chaseSpeed = 8.0f;
-    public float _patrolingSpeed = 10.0f;
-    public float _patrolRadius = 10.0f;
-    public float _awareDistance = 50.0f;
-    public float _visionDistance = 5.0f;
-    public float _attackDistance = 6.0f;
+    public float _rotationSpeed;
+    public float _walkSpeed;
+    public float _chaseSpeed;
+    public float _patrolingSpeed;
+    public float _patrolRadius;
+    public float _awareDistance;
+    public float _visionDistance;
+    public float _attackDistance;
 
     void Awake()
     {

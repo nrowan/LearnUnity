@@ -63,6 +63,8 @@ public class EnemyStateMachine
     public float? PlayerLastSeenTime { get { return _playerLastSeenTime; } set { _playerLastSeenTime = value; } }
     Vector3 _playerLastLocation;
     public Vector3 PlayerLastLocation { get { return _playerLastLocation; } }
+    Vector3 _playerLastDirection;
+    public Vector3 PlayerLastDirection { get { return _playerLastDirection; }}
     bool _isChasing = false;
     public bool IsChasing { get { return _isChasing; } set { _isChasing = value; } }
     public float ChaseSpeed { get { return _chaseSpeed; } }

@@ -27,7 +27,7 @@ public class PlayerStateMachine : MonoBehaviour
     // constants
     float _walkSpeed = 6.0f;
     float _runSpeed = 8.0f;
-    private float _turnSmoothTime = 0.1f;
+    private float _turnSmoothTime = 15f;
     private float _turnSmoothVelocity;
     int _zero = 0;
 
@@ -130,13 +130,21 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void HandleRotation()
     {
-        float targetAngle = Mathf.Atan2(_currentMovementInput.x, _currentMovementInput.z) * Mathf.Rad2Deg + _cam.gameObject.transform.eulerAngles.y;
+        Vector3 positionToLookAt = new Vector3(_currentMovementInput.x, 0, _currentMovementInput.z);
+        Quaternion currentRotation = transform.rotation;
+        if (_isMovementPressed)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
+            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _turnSmoothTime * Time.deltaTime);
+            _camMoveDirection = positionToLookAt;
+        }
+        /*float targetAngle = Mathf.Atan2(_currentMovementInput.x, _currentMovementInput.z) * Mathf.Rad2Deg + _cam.gameObject.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
         if (!float.IsNaN(angle))
         {
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             _camMoveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-        }
+        }*/
     }
     void OnMovementInput(InputAction.CallbackContext context)
     {

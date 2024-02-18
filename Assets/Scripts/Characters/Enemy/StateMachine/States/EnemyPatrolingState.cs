@@ -30,7 +30,9 @@ public class EnemyPatrolingState : EnemyBaseState
         }
         CheckSwitchStates();
     }
-    public override void ExitState() { }
+    public override void ExitState() { 
+        Ctx.DestinationSet = false;
+    }
     public override void CheckSwitchStates()
     {
         if (Ctx.IsPlayerInVision)

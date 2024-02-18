@@ -54,14 +54,6 @@ public class EnemyChaseState : EnemyBaseState
         {
             SwitchState(Factory.Hunt());
         }
-        else if (!Ctx.IsChasing && !Ctx.IsAttacking && !Ctx.DestinationSet)
-        {
-            SwitchState(Factory.Idle());
-        }
-        else if (!Ctx.IsChasing && !Ctx.IsAttacking && Ctx.DestinationSet)
-        {
-            SwitchState(Factory.Patroling());
-        }
     }
     public override void InitializeSubState() { }
 }
