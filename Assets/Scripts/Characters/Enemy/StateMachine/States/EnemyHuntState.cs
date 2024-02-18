@@ -53,8 +53,8 @@ public class EnemyHuntState : EnemyBaseState
                 else
                 {
                     // At last known location, look around
-                    //Quaternion targetRotation = Quaternion.LookRotation(Ctx.Player.position);
-                    //Ctx.MyTransform.rotation = Quaternion.Slerp(Ctx.MyTransform.rotation, targetRotation, 2 * Time.deltaTime);
+                    Quaternion targetRotation = Quaternion.LookRotation(Ctx.Player.position);
+                    Ctx.MyTransform.rotation = Quaternion.Slerp(Ctx.MyTransform.rotation, targetRotation, 5 * Time.deltaTime);
                     /*Quaternion from = Quaternion.Euler(_from);
                     Quaternion to = Quaternion.Euler(_to);
 

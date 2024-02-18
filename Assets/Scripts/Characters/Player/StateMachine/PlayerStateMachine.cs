@@ -111,7 +111,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _moveDirection = new Vector3(_currentMovementInput.x, 0, _currentMovementInput.z).normalized;
         _moveDirection = Quaternion.AngleAxis(_cam.transform.rotation.eulerAngles.y, Vector3.up) * _moveDirection;
-        //_moveDirection = Vector3.ClampMagnitude(_moveDirection, 1f);
+        _moveDirection = Vector3.ClampMagnitude(_moveDirection, 1f);
         Quaternion currentRotation = transform.rotation;
         if (_isMovementPressed)
         {
