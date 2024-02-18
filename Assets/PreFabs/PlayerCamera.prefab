@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_CommonLens: 1
   m_Lens:
-    FieldOfView: 35
+    FieldOfView: 40
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -263,7 +263,7 @@ MonoBehaviour:
   - m_Height: 3
     m_Radius: 13
   - m_Height: -1
-    m_Radius: 8
+    m_Radius: 12
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 2824254446323325626}
