@@ -11,8 +11,8 @@ public class PlayerWalkState : PlayerBaseState
     }
     public override void UpdateState()
     {
-        Ctx.AppliedMovementX = Ctx.CamMoveDirection.x * Ctx.WalkSpeed;
-        Ctx.AppliedMovementZ = Ctx.CamMoveDirection.z * Ctx.WalkSpeed;
+        Ctx.AppliedMovementX = Ctx.MoveDirection.x * Ctx.WalkSpeed;
+        Ctx.AppliedMovementZ = Ctx.MoveDirection.z * Ctx.WalkSpeed;
         CheckSwitchStates();
     }
 

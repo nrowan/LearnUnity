@@ -48,13 +48,13 @@ public class EnemyHuntState : EnemyBaseState
                         _pathUpdateDeadline = Time.time + _pathUpdateDelay;
                         Ctx.Agent.SetDestination(destination);
                     }
-                    _from = Ctx.MyTransform.eulerAngles;
+                    //_from = Ctx.MyTransform.eulerAngles;
                 }
                 else
                 {
                     // At last known location, look around
-                    Ctx.Agent.isStopped = true;
-                    Ctx.MyTransform.LookAt(Ctx.PlayerLastDirection);
+                    Quaternion targetRotation = Quaternion.LookRotation(Ctx.Player.position);
+                    Ctx.MyTransform.rotation = Quaternion.Slerp(Ctx.MyTransform.rotation, targetRotation, 2 * Time.deltaTime);
                     /*Quaternion from = Quaternion.Euler(_from);
                     Quaternion to = Quaternion.Euler(_to);
 

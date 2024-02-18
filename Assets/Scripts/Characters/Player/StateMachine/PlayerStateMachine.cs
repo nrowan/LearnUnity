@@ -4,12 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    private Camera _cam;
-    private Vector3 _camMoveDirection;
-    public Vector3 CamMoveDirection { get { return _camMoveDirection; } }
     // declare reference variables
     private CharacterController _characterController;
     public CharacterController CharacterController { get { return _characterController; } }
+    private Camera _cam;
     Animator _animator;
     PlayerActions _playerActions;
 
@@ -23,19 +21,20 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 _appliedMovement;
     bool _isMovementPressed;
     bool _isRunPressed;
+    Vector3 _moveDirection;
+    public Vector3 MoveDirection { get { return _moveDirection; } }
 
     // constants
-    float _walkSpeed = 6.0f;
-    float _runSpeed = 8.0f;
-    private float _turnSmoothTime = 15f;
-    private float _turnSmoothVelocity;
+    float _walkSpeed = 10.0f;
+    float _runSpeed = 15.0f;
+    private float _turnSmooth = 10.0f;
     int _zero = 0;
 
     // Jumping Variables
-    bool _isJumpPressed = false;
-    float _initialJumpVelocity;
     float _maxJumpHeight = 4.0f;
     float _maxJumpTime = .75f;
+    bool _isJumpPressed = false;
+    float _initialJumpVelocity;
     bool _isJumping = false;
     int _isJumpingHash;
     int _jumpCountHash;
@@ -98,7 +97,28 @@ public class PlayerStateMachine : MonoBehaviour
 
         SetJumpVariables();
     }
-
+    private void Start()
+    {
+        _characterController.Move(_appliedMovement * Time.deltaTime);
+    }
+    private void Update()
+    {
+        HandleRotation();
+        _currentState.UpdateStates();
+        _characterController.Move(_appliedMovement * Time.deltaTime);
+    }
+    void HandleRotation()
+    {
+        _moveDirection = new Vector3(_currentMovementInput.x, 0, _currentMovementInput.z).normalized;
+        _moveDirection = Quaternion.AngleAxis(_cam.transform.rotation.eulerAngles.y, Vector3.up) * _moveDirection;
+        //_moveDirection = Vector3.ClampMagnitude(_moveDirection, 1f);
+        Quaternion currentRotation = transform.rotation;
+        if (_isMovementPressed)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(_moveDirection);
+            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _turnSmooth * Time.deltaTime);
+        }
+    }
     void SetJumpVariables()
     {
         float timeToApex = _maxJumpTime / 2;
@@ -117,34 +137,6 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpGravities.Add(1, initialGravity);
         _jumpGravities.Add(2, secondJumpGravity);
         _jumpGravities.Add(3, thirdJumpGravity);
-    }
-    private void Start()
-    {
-        _characterController.Move(_appliedMovement * Time.deltaTime);
-    }
-    private void Update()
-    {
-        HandleRotation();
-        _currentState.UpdateStates();
-        _characterController.Move(_appliedMovement * Time.deltaTime);
-    }
-    void HandleRotation()
-    {
-        Vector3 positionToLookAt = new Vector3(_currentMovementInput.x, 0, _currentMovementInput.z);
-        Quaternion currentRotation = transform.rotation;
-        if (_isMovementPressed)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _turnSmoothTime * Time.deltaTime);
-            _camMoveDirection = positionToLookAt;
-        }
-        /*float targetAngle = Mathf.Atan2(_currentMovementInput.x, _currentMovementInput.z) * Mathf.Rad2Deg + _cam.gameObject.transform.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
-        if (!float.IsNaN(angle))
-        {
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            _camMoveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-        }*/
     }
     void OnMovementInput(InputAction.CallbackContext context)
     {

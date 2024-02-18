@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerRunState : PlayerBaseState
 {
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
@@ -9,9 +11,8 @@ public class PlayerRunState : PlayerBaseState
     }
     public override void UpdateState()
     {
-        float speed = Ctx.WalkSpeed + Ctx.RunSpeed;
-        Ctx.AppliedMovementX = Ctx.CamMoveDirection.x * speed;
-        Ctx.AppliedMovementZ = Ctx.CamMoveDirection.z * speed;
+        Ctx.AppliedMovementX = Ctx.MoveDirection.x * Ctx.RunSpeed;
+        Ctx.AppliedMovementZ = Ctx.MoveDirection.z * Ctx.RunSpeed;
         CheckSwitchStates();
     }
     public override void ExitState() { }

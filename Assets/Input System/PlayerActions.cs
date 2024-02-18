@@ -64,7 +64,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Mouse"",
+                    ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""0deaf97f-ba0b-48d2-90f6-05d54db9c84e"",
                     ""expectedControlType"": ""Vector2"",
@@ -191,7 +191,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Mouse"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -206,7 +206,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Player_Map_Run = m_Player_Map.FindAction("Run", throwIfNotFound: true);
         m_Player_Map_Jump = m_Player_Map.FindAction("Jump", throwIfNotFound: true);
         m_Player_Map_Pause = m_Player_Map.FindAction("Pause", throwIfNotFound: true);
-        m_Player_Map_Mouse = m_Player_Map.FindAction("Mouse", throwIfNotFound: true);
+        m_Player_Map_Look = m_Player_Map.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -272,7 +272,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Map_Run;
     private readonly InputAction m_Player_Map_Jump;
     private readonly InputAction m_Player_Map_Pause;
-    private readonly InputAction m_Player_Map_Mouse;
+    private readonly InputAction m_Player_Map_Look;
     public struct Player_MapActions
     {
         private @PlayerActions m_Wrapper;
@@ -281,7 +281,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_Player_Map_Run;
         public InputAction @Jump => m_Wrapper.m_Player_Map_Jump;
         public InputAction @Pause => m_Wrapper.m_Player_Map_Pause;
-        public InputAction @Mouse => m_Wrapper.m_Player_Map_Mouse;
+        public InputAction @Look => m_Wrapper.m_Player_Map_Look;
         public InputActionMap Get() { return m_Wrapper.m_Player_Map; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -303,9 +303,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @Mouse.started += instance.OnMouse;
-            @Mouse.performed += instance.OnMouse;
-            @Mouse.canceled += instance.OnMouse;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         private void UnregisterCallbacks(IPlayer_MapActions instance)
@@ -322,9 +322,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @Mouse.started -= instance.OnMouse;
-            @Mouse.performed -= instance.OnMouse;
-            @Mouse.canceled -= instance.OnMouse;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         public void RemoveCallbacks(IPlayer_MapActions instance)
@@ -348,6 +348,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnMouse(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }

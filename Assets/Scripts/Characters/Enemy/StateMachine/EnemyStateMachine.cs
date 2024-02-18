@@ -63,8 +63,6 @@ public class EnemyStateMachine
     public float? PlayerLastSeenTime { get { return _playerLastSeenTime; } set { _playerLastSeenTime = value; } }
     Vector3 _playerLastLocation;
     public Vector3 PlayerLastLocation { get { return _playerLastLocation; } }
-    Vector3 _playerLastDirection;
-    public Vector3 PlayerLastDirection { get { return _playerLastDirection; }}
     bool _isChasing = false;
     public bool IsChasing { get { return _isChasing; } set { _isChasing = value; } }
     public float ChaseSpeed { get { return _chaseSpeed; } }
@@ -106,7 +104,7 @@ public class EnemyStateMachine
         {
             _isPlayerInAwareRange = true;
             // Find out if player is in front of enemy by using dot angles
-            Vector3 toTarget = (_playerTransform.position - _myTransform.position).normalized;
+            Vector3 toTarget = _playerTransform.position - _myTransform.position;
             if (Vector3.Dot(toTarget, _myTransform.transform.forward) > .7)
             {
                 _isPlayerInFront = true;
