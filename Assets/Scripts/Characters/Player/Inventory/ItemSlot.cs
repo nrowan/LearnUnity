@@ -4,21 +4,15 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-    private Item _item;
-    public Item Item { get { return _item; } }
-    private int _quantity;
-    public int Quantity { get { return _quantity; } set { _quantity += value; } }
-
+    private ItemBucket _itemBucket;
     [SerializeField]
     private TMP_Text quanityText;
     [SerializeField]
     private Image itemImage;
-
-    public void AddItem(Item item)
+    public void OnCreated(ItemBucket item)
     {
-        _item = item;
-        _quantity = item.Quantity;
-        quanityText.text = _quantity.ToString();
-        itemImage.sprite = item.Image;
+        _itemBucket = item;
+        quanityText.text = _itemBucket.Item.Quantity.ToString();
+        itemImage.sprite = _itemBucket.Item.Image;
     }
 }

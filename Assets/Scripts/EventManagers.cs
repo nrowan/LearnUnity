@@ -23,6 +23,6 @@ public static class EventManager
 
 
     // Inventory
-    public static UnityAction<Item> OnItemAdded;
-    public static void RaiseOnItemAdded(Item item) => OnItemAdded?.Invoke(item);
+    public static UnityAction<ItemBase> OnItemAdded;
+    public static void RaiseOnItemAdded(ItemBase item) => OnItemAdded?.Invoke(item);
 }
