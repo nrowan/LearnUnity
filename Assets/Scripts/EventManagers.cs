@@ -20,4 +20,9 @@ public static class EventManager
     public static void RaiseOnScoreChanged(int score) => OnScoreChanged?.Invoke(score);
     public static UnityAction<int> OnScoreUpdated;
     public static void RaiseOnScoreUpdated(int scoreValue) => OnScoreUpdated?.Invoke(scoreValue);
+
+
+    // Inventory
+    public static UnityAction<Item> OnItemAdded;
+    public static void RaiseOnItemAdded(Item item) => OnItemAdded?.Invoke(item);
 }
