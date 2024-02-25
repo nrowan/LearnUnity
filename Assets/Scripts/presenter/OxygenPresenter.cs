@@ -3,26 +3,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthPresenter : MonoBehaviour
+public class OxygenPresenter : MonoBehaviour
 {
     private InGameMenus _menus;
     private TextMeshProUGUI _text;
-    private PlayerHealthModel _healthModel;
-    private Slider _healthSlider;
+    private PlayerOxygenModel _oxygenModel;
+    private Slider _oxygenSlider;
     private Image _sliderFill;
     private Color _sliderFillOC;
 
     private void Awake()
     {
-        _healthSlider = gameObject.GetComponentInChildren<Slider>();
-        _healthModel = FindObjectOfType<PlayerHealthModel>();
-        _sliderFill = _healthSlider.GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
+        _oxygenSlider = gameObject.GetComponentInChildren<Slider>();
+        _oxygenModel = FindObjectOfType<PlayerOxygenModel>();
+        _sliderFill = _oxygenSlider.GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
         _sliderFillOC = _sliderFill.color;
 
-        if (_healthModel == null)
+        if (_oxygenModel == null)
         {
             Debug.LogWarning(
-                "Health Presenter needs a Health to present please make sure one is set in The Inspector",
+                "Oxygen Presenter needs a oxygen to present please make sure one is set in The Inspector",
                 gameObject);
             enabled = false;
         }
@@ -34,38 +34,38 @@ public class HealthPresenter : MonoBehaviour
         _text = FindObjectsOfType<TextMeshProUGUI>().FirstOrDefault(t => t.name == "LivesText");
         _text.text = GameInformation.Lives.ToString();
 
-        OnHealthChanged(_healthModel.CurrentHealth, _healthModel.MaxHealth);
+        OnOxygenChanged(_oxygenModel.CurrentOxygen, _oxygenModel.MaxOxygen);
     }
 
     private void OnEnable()
     {
-        EventManager.OnHealthChanged += OnHealthChanged;
-        EventManager.OnDamageTaken += DamageTaken;
-        EventManager.OnHealthReceived += HealthReceived;
+        EventManager.OnOxygenChanged += OnOxygenChanged;
+        EventManager.OnOxygenLost += OnOxygenLost;
+        EventManager.OnOxygenReceived += OnOxygenReceived;
         EventManager.OnNewLife += OnNewLife;
         EventManager.OnLifeLost += OnLifeLost;
     }
 
     private void OnDisable()
     {
-        EventManager.OnHealthChanged -= OnHealthChanged;
-        EventManager.OnDamageTaken -= DamageTaken;
-        EventManager.OnHealthReceived -= HealthReceived;
+        EventManager.OnOxygenChanged -= OnOxygenChanged;
+        EventManager.OnOxygenLost -= OnOxygenLost;
+        EventManager.OnOxygenReceived -= OnOxygenReceived;
         EventManager.OnNewLife -= OnNewLife;
         EventManager.OnLifeLost -= OnLifeLost;
     }
 
-    private void DamageTaken(float damage)
+    private void OnOxygenLost(float damage)
     {
-        _healthModel.DamageTaken(damage);
+        _oxygenModel.OxygenLost(damage);
     }
 
-    private void OnHealthChanged(float currentHealth, float maxHealth)
+    private void OnOxygenChanged(float currentOxygen, float maxHOxygen)
     {
-        var percentHealth = currentHealth / maxHealth;
-        _healthSlider.value = percentHealth;
+        var percentOxygen = currentOxygen / maxHOxygen;
+        _oxygenSlider.value = percentOxygen;
         
-        if (percentHealth < .5)
+        if (percentOxygen < .5)
         {
             if (_sliderFill != null)
             {
@@ -77,13 +77,13 @@ public class HealthPresenter : MonoBehaviour
             _sliderFill.color = _sliderFillOC;
         }
     }
-    private void HealthReceived(float health)
+    private void OnOxygenReceived(float oxygen)
     {
-        _healthModel.HealthReceived(health);
+        _oxygenModel.OxygenReceived(oxygen);
     }
     private void OnNewLife()
     {
-        _healthModel.ResetHealth();
+        _oxygenModel.ResetOxygen();
     }
 
     private void OnLifeLost()

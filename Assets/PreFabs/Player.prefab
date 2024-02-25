@@ -1110,7 +1110,7 @@ GameObject:
   - component: {fileID: 5774279528624156934}
   - component: {fileID: 6255113340672885027}
   m_Layer: 3
-  m_Name: HealthModel
+  m_Name: OxygenModel
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

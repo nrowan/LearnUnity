@@ -81,11 +81,9 @@
     <Compile Include="Assets/Scripts/LevelDetails/EndLevel.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerGroundedState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerJumpState.cs" />
-    <Compile Include="Assets/Scripts/presenter/HealthPresenter.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/BaseLevel.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/ItemSlot.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerIdleState.cs" />
-    <Compile Include="Assets/Scripts/presenter/items/OxygenPresenter.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/EnemyStateFactory.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyChaseState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/ItemBase.cs" />
@@ -108,12 +106,13 @@
     <Compile Include="Assets/Scripts/presenter/ScorePresenter.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/Items/Equippables/AirTankGameObject.cs" />
     <Compile Include="Assets/Scenes/MainMenu.cs" />
-    <Compile Include="Assets/Scripts/Characters/Player/PlayerHealthModel.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/Items/Consumables/OxygenPod.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyPatrolingState.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/OutsideLevel.cs" />
+    <Compile Include="Assets/Scripts/presenter/OxygenPresenter.cs" />
     <Compile Include="Assets/Scripts/GameInformation.cs" />
     <Compile Include="Assets/Scripts/Characters/Shared/IRootState.cs" />
+    <Compile Include="Assets/Scripts/Characters/Player/PlayerOxygenModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

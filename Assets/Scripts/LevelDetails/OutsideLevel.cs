@@ -3,25 +3,25 @@ using System.Collections;
 public class OutsideLevel : MonoBehaviour
 {
     private IEnumerator coroutine;
-    int _healthDrain { get; set; } = 1;
+    int _oxygenDrain { get; set; } = 1;
     int _drainSpeed { get; set; } = 1;
     public OutsideLevel() { }
-    public OutsideLevel(int? drainSpeed, int? healthDrain)
+    public OutsideLevel(int? drainSpeed, int? oxygenLost)
     {
         _drainSpeed = drainSpeed ?? _drainSpeed;
-        _healthDrain = healthDrain ?? _healthDrain;
+        _oxygenDrain = oxygenLost ?? _oxygenDrain;
     }
 
     void Start()
     {
-        coroutine = HealthDrain();
+        coroutine = OxygenDrain();
         StartCoroutine(coroutine);
     }
-    IEnumerator HealthDrain()
+    IEnumerator OxygenDrain()
     {
         while (true)
         {
-            EventManager.RaiseOnDamageTaken(_healthDrain);
+            EventManager.OnOxygenLost(_oxygenDrain);
             yield return new WaitForSeconds(_drainSpeed);
         }
     }
