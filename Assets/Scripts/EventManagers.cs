@@ -27,4 +27,6 @@ public static class EventManager
     public static void RaiseOnItemAdded(ItemBase item) => OnItemAdded?.Invoke(item);
     public static UnityAction OnInventoryDeselect;
     public static void RaiseOnInventoryDeselect() => OnInventoryDeselect?.Invoke();
+    public static UnityAction<ItemSlot> OnInventorySelect;
+    public static void RaiseOnInventorySelect(ItemSlot slot) => OnInventorySelect?.Invoke(slot);
 }

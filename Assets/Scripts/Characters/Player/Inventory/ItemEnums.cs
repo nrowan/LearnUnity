@@ -6,7 +6,8 @@ public enum ItemTypes
 }
 public enum ConsumableItemNames
 {
-    OxygenPod
+    OxygenPod,
+    OxygenPodXL
 }
 public enum EquippableItemNames
 {

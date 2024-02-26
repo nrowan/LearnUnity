@@ -103,6 +103,7 @@
     <Compile Include="Assets/Scripts/EventManagers.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/EnemyStateMachine.cs" />
     <Compile Include="Assets/Scripts/presenter/ScorePresenter.cs" />
+    <Compile Include="Assets/Scripts/Characters/Player/Inventory/ItemDescription.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/Items/Equippables/AirTankGameObject.cs" />
     <Compile Include="Assets/Scenes/MainMenu.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/IActionable.cs" />

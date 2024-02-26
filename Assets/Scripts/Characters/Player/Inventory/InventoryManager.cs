@@ -13,6 +13,7 @@ public class InventoryUIController : MonoBehaviour
 
     private GameObject _inventoryMenu;
     private GameObject _inventorySlots;
+    private ItemDescription _inventoryDescription;
     public GameObject ItemSlotPrefab;
     public Button _consumableButton;
     public Button _equippableButton;
@@ -39,6 +40,7 @@ public class InventoryUIController : MonoBehaviour
             {
                 _inventoryMenu = gameObject.transform.GetChild(i).gameObject;
                 _inventorySlots = _inventoryMenu.GetComponentsInChildren<Transform>(true).FirstOrDefault(go => go.name == "InventorySlots").gameObject;
+                _inventoryDescription = _inventoryMenu.GetComponentInChildren<ItemDescription>();
                 break;
             }
         }
@@ -47,31 +49,14 @@ public class InventoryUIController : MonoBehaviour
     {
         _playerActions.Player_Map.Enable();
         EventManager.OnItemAdded += AddItem;
+        EventManager.OnInventorySelect += InventorySelect;
     }
 
     private void OnDisable()
     {
         _playerActions.Player_Map.Disable();
         EventManager.OnItemAdded -= AddItem;
-    }
-
-    private void UpdateItemSlots(int i)
-    {
-
-    }
-    private void ReplaceItemSlots()
-    {
-        foreach(var slot in _inventorySlots.GetComponentsInChildren<ItemSlot>())
-        {
-            Destroy(slot.gameObject);
-        }
-        List<ItemBucket> toShow = _showingConsumables ? _itemConsumables : _itemEquippables;
-        foreach(var bucket in toShow)
-        {
-            GameObject slotGO = Instantiate(ItemSlotPrefab, _inventorySlots.transform);
-            ItemSlot slot = slotGO.GetComponent<ItemSlot>();
-            slot.OnCreated(bucket);
-        }
+        EventManager.OnInventorySelect -= InventorySelect;
     }
     private void InventoryAction()
     {
@@ -90,26 +75,76 @@ public class InventoryUIController : MonoBehaviour
     }
     private void AddItem(ItemBase item)
     {
-        bool found = false;
+        int updatedIndex = -1;
+        ItemBucket newBucket = null;
         List<ItemBucket> toShow = item.ItemType == ItemTypes.Consumable ? _itemConsumables : _itemEquippables;
-        for(int i = 0; i < toShow.Count; i++)
+        for (int i = 0; i < toShow.Count; i++)
         {
-            if(toShow[i].Item.ItemName == item.ItemName)
+            if (toShow[i].Item.ItemName == item.ItemName)
             {
-                toShow[i].Quantity += item.Quantity;
-                found = true;
-                UpdateItemSlots(i);
+                newBucket = toShow[i];
+                newBucket.Quantity += item.Quantity;
+                updatedIndex = i;
                 break;
             }
         }
-        if(!found)
+        // Not found, so new item
+        if (newBucket == null)
         {
-            toShow.Add(new ItemBucket(item));
+            newBucket = new ItemBucket(item);
+            toShow.Add(newBucket);
+            updatedIndex = toShow.Count - 1;
         }
-        if(item.ItemType == ItemTypes.Consumable && _showingConsumables || item.ItemType == ItemTypes.Equippable && !_showingConsumables)
+        // If currently shown inventory type, update the slot with new value
+        if (item.ItemType == ItemTypes.Consumable && _showingConsumables || item.ItemType == ItemTypes.Equippable && !_showingConsumables)
         {
-            //UpdateItemSlots();
-            ReplaceItemSlots();
+            UpdateItemSlots(updatedIndex, newBucket);
+        }
+    }
+
+    private void CreateNewItemSlot(ItemBucket bucket)
+    {
+        GameObject slotGO = Instantiate(ItemSlotPrefab, _inventorySlots.transform);
+        ItemSlot slot = slotGO.GetComponent<ItemSlot>();
+        slot.UpdateSlot(bucket);
+    }
+    private void UpdateItemSlots(int index, ItemBucket bucket)
+    {
+        var slots = _inventorySlots.GetComponentsInChildren<ItemSlot>();
+        if (index > slots.Length - 1)
+        {
+            CreateNewItemSlot(bucket);
+        }
+        else
+        {
+            slots[index].UpdateSlot(bucket);
+        }
+    }
+    private void ReplaceItemSlots()
+    {
+        foreach (var slot in _inventorySlots.GetComponentsInChildren<ItemSlot>())
+        {
+            Destroy(slot.gameObject);
+        }
+        List<ItemBucket> toShow = _showingConsumables ? _itemConsumables : _itemEquippables;
+        foreach (var bucket in toShow)
+        {
+            CreateNewItemSlot(bucket);
+        }
+    }
+    private void InventorySelect(ItemSlot slot)
+    {
+        if (slot != null)
+        {
+            _inventoryDescription.ItemDescriptionNameText.text = slot.ItemBucket.Item.DisplayName;
+            _inventoryDescription.ItemDescriptionText.text = slot.ItemBucket.Item.Description;
+            _inventoryDescription.ItemDescriptionImage.sprite = slot.ItemBucket.Item.Image;
+        }
+        else
+        {
+            _inventoryDescription.ItemDescriptionNameText.text = "";
+            _inventoryDescription.ItemDescriptionText.text = "";
+            _inventoryDescription.ItemDescriptionImage.sprite = Resources.Load<Sprite>("EmptySlot");
         }
     }
     void ShowConsumable()
@@ -123,6 +158,7 @@ public class InventoryUIController : MonoBehaviour
         tempColor.a = _originalAlpha;
         _equippableButtonImage.color = tempColor;
         ReplaceItemSlots();
+        EventManager.RaiseOnInventorySelect(null);
     }
     void ShowEquippable()
     {
@@ -135,5 +171,6 @@ public class InventoryUIController : MonoBehaviour
         tempColor.a = _originalAlpha;
         _consumableButtonImage.color = tempColor;
         ReplaceItemSlots();
+        EventManager.RaiseOnInventorySelect(null);
     }
 }
