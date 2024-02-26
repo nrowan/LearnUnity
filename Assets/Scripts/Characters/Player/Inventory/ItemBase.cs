@@ -1,8 +1,10 @@
 using System;
 using UnityEngine;
 
-public class ItemBase : IItem
+public abstract class ItemBase : IItem, IActionable
 {
+    ItemNames _itemName;
+    public ItemNames ItemName { get { return _itemName; } }
     private ItemTypes _itemType;
     public ItemTypes ItemType { get { return _itemType; } }
     private string _displayName;
@@ -16,8 +18,9 @@ public class ItemBase : IItem
     private Sprite _image;
     public Sprite Image { get { return _image; } }
 
-    public ItemBase(ItemTypes itemType, string displayName, string description, int quantity, Sprite image)
+    public ItemBase(ItemNames itemName, ItemTypes itemType, string displayName, string description, int quantity, Sprite image)
     {
+        _itemName = itemName;
         _itemType = itemType;
         _displayName = displayName;
         _description = description;

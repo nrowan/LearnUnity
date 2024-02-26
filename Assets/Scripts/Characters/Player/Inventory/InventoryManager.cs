@@ -55,7 +55,7 @@ public class InventoryUIController : MonoBehaviour
         EventManager.OnItemAdded -= AddItem;
     }
 
-    private void UpdateSlots()
+    private void UpdateItemSlots()
     {
         foreach(var slot in _inventorySlots.GetComponentsInChildren<ItemSlot>())
         {
@@ -90,9 +90,9 @@ public class InventoryUIController : MonoBehaviour
         List<ItemBucket> toShow = item.ItemType == ItemTypes.Consumable ? _itemConsumables : _itemEquippables;
         foreach(var bucket in toShow)
         {
-            if(bucket.Item.ItemType == item.ItemType) 
+            if(item.ItemName == bucket.Item.ItemName) 
             {
-                bucket.UpdateQuantity(bucket.Quantity + item.Quantity);
+                bucket.Quantity += item.Quantity;
                 found = true;
                 break;
             }
@@ -103,7 +103,7 @@ public class InventoryUIController : MonoBehaviour
         }
         if(item.ItemType == ItemTypes.Consumable && _showingConsumables || item.ItemType == ItemTypes.Equippable && !_showingConsumables)
         {
-            UpdateSlots();
+            UpdateItemSlots();
         }
     }
     void ShowConsumable()
@@ -116,7 +116,7 @@ public class InventoryUIController : MonoBehaviour
         tempColor = _equippableButtonImage.color;
         tempColor.a = _originalAlpha;
         _equippableButtonImage.color = tempColor;
-        UpdateSlots();
+        UpdateItemSlots();
     }
     void ShowEquippable()
     {
@@ -128,6 +128,6 @@ public class InventoryUIController : MonoBehaviour
         tempColor = _consumableButtonImage.color;
         tempColor.a = _originalAlpha;
         _consumableButtonImage.color = tempColor;
-        UpdateSlots();
+        UpdateItemSlots();
     }
 }

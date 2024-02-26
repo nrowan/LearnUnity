@@ -243,6 +243,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quanityText: {fileID: 765670271990901581}
   itemImage: {fileID: 4500144265491815108}
+  _selectedShader: {fileID: 1313416406309616211}
+  _thisItemSelected: 0
 --- !u!1 &8730694178026033786
 GameObject:
   m_ObjectHideFlags: 0

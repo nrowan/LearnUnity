@@ -1,13 +1,11 @@
+
 public enum ItemTypes
 {
     Consumable,
     Equippable
 }
-public enum ConsumableItemNames
+public enum ItemNames
 {
-    OxygenCapsules
-}
-public enum EquippableItemNames
-{
+    OxygenPod,
     AirTank
 }

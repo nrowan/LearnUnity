@@ -68,7 +68,6 @@
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/InventoryManager.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerStateFactory.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyIdleState.cs" />
-    <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerFallingState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyAttackState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/ItemBucket.cs" />
     <Compile Include="Assets/Scripts/Menus/InGameMenus.cs" />
@@ -106,6 +105,7 @@
     <Compile Include="Assets/Scripts/presenter/ScorePresenter.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/Items/Equippables/AirTankGameObject.cs" />
     <Compile Include="Assets/Scenes/MainMenu.cs" />
+    <Compile Include="Assets/Scripts/Characters/Player/Inventory/IActionable.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/Items/Consumables/OxygenPod.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyPatrolingState.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/OutsideLevel.cs" />
