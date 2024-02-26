@@ -3,8 +3,6 @@ using UnityEngine;
 
 public abstract class ItemBase : IItem, IActionable
 {
-    ItemNames _itemName;
-    public ItemNames ItemName { get { return _itemName; } }
     private ItemTypes _itemType;
     public ItemTypes ItemType { get { return _itemType; } }
     private string _displayName;
@@ -18,9 +16,9 @@ public abstract class ItemBase : IItem, IActionable
     private Sprite _image;
     public Sprite Image { get { return _image; } }
 
-    public ItemBase(ItemNames itemName, ItemTypes itemType, string displayName, string description, int quantity, Sprite image)
+    public ItemBase(ItemTypes itemType, string displayName, string description, int quantity, Sprite image)
     {
-        _itemName = itemName;
+        //_itemName = itemName;
         _itemType = itemType;
         _displayName = displayName;
         _description = description;
@@ -28,4 +26,6 @@ public abstract class ItemBase : IItem, IActionable
         _guid = new Guid();
         _image = image;
     }
+
+    public abstract int ItemName { get; }
 }

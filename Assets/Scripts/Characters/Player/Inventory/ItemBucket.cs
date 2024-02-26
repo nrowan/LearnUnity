@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ItemBucket
 {
     private ItemBase _item;
