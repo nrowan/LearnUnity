@@ -10,10 +10,8 @@ public static class EventManager
     public static void RaiseOnOxygenLost(float oxygen) => OnOxygenLost?.Invoke(oxygen);
     public static UnityAction<float> OnOxygenReceived;
     public static void RaiseOnOxygenReceived(float oxygen) => OnOxygenReceived?.Invoke(oxygen);
-    public static UnityAction OnLifeLost;
-    public static void RaiseOnLifeLost() => OnLifeLost?.Invoke();
-    public static UnityAction OnNewLife;
-    public static void RaiseOnNewLife() => OnNewLife?.Invoke();
+    public static UnityAction OnOxygenDepleted;
+    public static void RaiseOnOxygenDepleted() => OnOxygenDepleted?.Invoke();
 
     
     public static UnityAction<int> OnScoreChanged;

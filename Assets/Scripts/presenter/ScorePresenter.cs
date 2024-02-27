@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ScorePresenter : MonoBehaviour
 {
-    private ScoreModel _scoreModel;
+    [SerializeField]
+    private ScoreSO ScoreModel;
     private TextMeshProUGUI _text;
     void Start()
     {
-        _scoreModel = FindObjectOfType<ScoreModel>();
         _text = gameObject.GetComponentsInChildren<TextMeshProUGUI>().FirstOrDefault(t => t.name == "ScoreText");
-        OnScoreChanged(_scoreModel.Score);
-        if (_scoreModel == null)
+        OnScoreChanged(ScoreModel.Score);
+        if (ScoreModel == null)
         {
             Debug.LogWarning(
                 "Score Presenter needs a Score Model to present please make sure to create a empty object and assign ScoreModel script",
@@ -38,6 +38,6 @@ public class ScorePresenter : MonoBehaviour
     }
     private void OnScoreUpdated(int scoreValue)
     {
-        _scoreModel.UpdateScore(scoreValue);
+        ScoreModel.UpdateScore(scoreValue);
     }
 }

@@ -1,8 +1,12 @@
 using UnityEngine;
-public class PlayerOxygenModel : MonoBehaviour
+
+[CreateAssetMenu(fileName = "Oxygen", menuName = "Oxygen", order = 0)]
+public class OxygenSO : ScriptableObject
 {
-    private float _fullOxygen = 100;
-    private float _currentOxygen;
+    [SerializeField]
+    private float _fullOxygen = 100.0f;
+    [SerializeField]
+    private float _currentOxygen = 100;
 
     public float CurrentOxygen
     {
@@ -11,7 +15,7 @@ public class PlayerOxygenModel : MonoBehaviour
         {
             if (value < 1)
             {
-                EventManager.RaiseOnLifeLost();
+                EventManager.RaiseOnOxygenDepleted();
             }
             _currentOxygen = Mathf.Clamp(value, 0, _fullOxygen);
             EventManager.RaiseOnOxygenChanged(_currentOxygen, _fullOxygen);
@@ -29,11 +33,6 @@ public class PlayerOxygenModel : MonoBehaviour
             _fullOxygen = max;
             EventManager.RaiseOnOxygenChanged(_currentOxygen, _fullOxygen);
         }
-    }
-
-    private void Awake()
-    {
-        ResetOxygen();
     }
 
     public void ResetOxygen()

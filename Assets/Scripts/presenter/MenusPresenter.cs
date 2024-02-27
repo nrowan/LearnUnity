@@ -6,18 +6,17 @@ using UnityEngine.UI;
 public static class ACTIVEMENU
 {
     public static string PAUSE = "Pause";
-    public static string GAME_OVER = "GameOver";
     public static string DEAD = "Dead";
     public static string LEVEL_COMPLETE = "LevelComplete";
 }
-public class InGameMenus : MonoBehaviour
+public class MenusPresenter : MonoBehaviour
 {
     private GameObject MenuOverlay;
     private GameObject ActiveOverlay;
     private Button ActiveButton;
     private PlayerActions _playerActions;
 
-    public bool Paused = false;
+    private bool Paused = false;
 
     private void Start()
     {
@@ -109,12 +108,6 @@ public class InGameMenus : MonoBehaviour
             Debug.LogError(ex.InnerException);
         }
     }
-
-    public void ShowGameOver()
-    {
-        SetActiveMenu(ACTIVEMENU.GAME_OVER);
-        Time.timeScale = 0;
-    }
     private void MainMenu()
     {
         HideMenu();
@@ -147,7 +140,6 @@ public class InGameMenus : MonoBehaviour
     private void RestartLevel()
     {
         HideMenu();
-        EventManager.RaiseOnNewLife();
         Time.timeScale = 1;
     }
     private void NextLevel()

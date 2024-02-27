@@ -70,15 +70,15 @@
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyIdleState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyAttackState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/ItemBucket.cs" />
-    <Compile Include="Assets/Scripts/Menus/InGameMenus.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyHuntState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyBaseState.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/ScoreSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerBaseState.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/ItemEnums.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyGroundedState.cs" />
-    <Compile Include="Assets/Scripts/model/ScoreModel.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/EndLevel.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerGroundedState.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/GameInformationSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerJumpState.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/BaseLevel.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/ItemSlot.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Assets/Scripts/Characters/Enemy/EnemyMartian.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/Items/Consumables/OxygenPodGameObject.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerStateMachine.cs" />
+    <Compile Include="Assets/Scripts/presenter/MenusPresenter.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/Inventory/Items/BaseItemGameObject.cs" />
     <Compile Include="Assets/Input System/PlayerActions.cs" />
     <Compile Include="Assets/Scripts/EventManagers.cs" />
@@ -111,9 +112,8 @@
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyPatrolingState.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/OutsideLevel.cs" />
     <Compile Include="Assets/Scripts/presenter/OxygenPresenter.cs" />
-    <Compile Include="Assets/Scripts/GameInformation.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/OxygenSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Shared/IRootState.cs" />
-    <Compile Include="Assets/Scripts/Characters/Player/PlayerOxygenModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

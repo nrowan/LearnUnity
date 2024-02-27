@@ -33,7 +33,7 @@ public class InventoryUIController : MonoBehaviour
         _consumableButton.onClick.AddListener(ShowConsumable);
         _equippableButton.onClick.AddListener(ShowEquippable);
 
-        _playerActions.Player_Map.Inventory.performed += _ => InventoryAction();
+        _playerActions.Player_Map.Inventory.performed += _ => InventoryButtonPressed();
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             if (gameObject.transform.GetChild(i).name == "InventoryMenu")
@@ -58,7 +58,10 @@ public class InventoryUIController : MonoBehaviour
         EventManager.OnItemAdded -= AddItem;
         EventManager.OnInventorySelect -= InventorySelect;
     }
-    private void InventoryAction()
+    /// <summary>
+    /// Show Hide inventory
+    /// </summary>
+    private void InventoryButtonPressed()
     {
         if (!_inventoryOpen)
         {
@@ -102,12 +105,21 @@ public class InventoryUIController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Create new visual item slot with the item bucket
+    /// </summary>
+    /// <param name="bucket"></param>
     private void CreateNewItemSlot(ItemBucket bucket)
     {
         GameObject slotGO = Instantiate(ItemSlotPrefab, _inventorySlots.transform);
         ItemSlot slot = slotGO.GetComponent<ItemSlot>();
         slot.UpdateSlot(bucket);
     }
+    /// <summary>
+    /// Update an existing slot with new values, or create new visual item slot if not exists
+    /// </summary>
+    /// <param name="index">index of the slot the bucket should be in</param>
+    /// <param name="bucket">bucket to add to slot</param>
     private void UpdateItemSlots(int index, ItemBucket bucket)
     {
         var slots = _inventorySlots.GetComponentsInChildren<ItemSlot>();
@@ -120,6 +132,9 @@ public class InventoryUIController : MonoBehaviour
             slots[index].UpdateSlot(bucket);
         }
     }
+    /// <summary>
+    /// Clear all slots and repopulate with items from bucket list
+    /// </summary>
     private void ReplaceItemSlots()
     {
         foreach (var slot in _inventorySlots.GetComponentsInChildren<ItemSlot>())
@@ -132,6 +147,11 @@ public class InventoryUIController : MonoBehaviour
             CreateNewItemSlot(bucket);
         }
     }
+
+    /// <summary>
+    /// When an slot is clicked, update the description on the right side
+    /// </summary>
+    /// <param name="slot"></param>
     private void InventorySelect(ItemSlot slot)
     {
         if (slot != null)
@@ -147,6 +167,10 @@ public class InventoryUIController : MonoBehaviour
             _inventoryDescription.ItemDescriptionImage.sprite = Resources.Load<Sprite>("EmptySlot");
         }
     }
+
+    /// <summary>
+    /// Tab button to show consumable slots
+    /// </summary>
     void ShowConsumable()
     {
         _showingConsumables = true;
@@ -160,6 +184,9 @@ public class InventoryUIController : MonoBehaviour
         ReplaceItemSlots();
         EventManager.RaiseOnInventorySelect(null);
     }
+    /// <summary>
+    /// Tab button to show equippable slots
+    /// </summary>
     void ShowEquippable()
     {
         _showingConsumables = false;

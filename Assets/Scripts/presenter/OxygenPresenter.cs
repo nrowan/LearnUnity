@@ -1,13 +1,11 @@
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class OxygenPresenter : MonoBehaviour
 {
-    private InGameMenus _menus;
-    private TextMeshProUGUI _text;
-    private PlayerOxygenModel _oxygenModel;
+    [SerializeField]
+    private OxygenSO _playerHealthSO;
     private Slider _oxygenSlider;
     private Image _sliderFill;
     private Color _sliderFillOC;
@@ -15,11 +13,10 @@ public class OxygenPresenter : MonoBehaviour
     private void Awake()
     {
         _oxygenSlider = gameObject.GetComponentInChildren<Slider>();
-        _oxygenModel = FindObjectOfType<PlayerOxygenModel>();
         _sliderFill = _oxygenSlider.GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
         _sliderFillOC = _sliderFill.color;
 
-        if (_oxygenModel == null)
+        if (_playerHealthSO == null)
         {
             Debug.LogWarning(
                 "Oxygen Presenter needs a oxygen to present please make sure one is set in The Inspector",
@@ -30,11 +27,7 @@ public class OxygenPresenter : MonoBehaviour
 
     private void Start()
     {
-        _menus = FindObjectOfType<InGameMenus>();
-        _text = FindObjectsOfType<TextMeshProUGUI>().FirstOrDefault(t => t.name == "LivesText");
-        _text.text = GameInformation.Lives.ToString();
-
-        OnOxygenChanged(_oxygenModel.CurrentOxygen, _oxygenModel.MaxOxygen);
+        OnOxygenChanged(_playerHealthSO.CurrentOxygen, _playerHealthSO.MaxOxygen);
     }
 
     private void OnEnable()
@@ -42,8 +35,6 @@ public class OxygenPresenter : MonoBehaviour
         EventManager.OnOxygenChanged += OnOxygenChanged;
         EventManager.OnOxygenLost += OnOxygenLost;
         EventManager.OnOxygenReceived += OnOxygenReceived;
-        EventManager.OnNewLife += OnNewLife;
-        EventManager.OnLifeLost += OnLifeLost;
     }
 
     private void OnDisable()
@@ -51,13 +42,11 @@ public class OxygenPresenter : MonoBehaviour
         EventManager.OnOxygenChanged -= OnOxygenChanged;
         EventManager.OnOxygenLost -= OnOxygenLost;
         EventManager.OnOxygenReceived -= OnOxygenReceived;
-        EventManager.OnNewLife -= OnNewLife;
-        EventManager.OnLifeLost -= OnLifeLost;
     }
 
     private void OnOxygenLost(float damage)
     {
-        _oxygenModel.OxygenLost(damage);
+        _playerHealthSO.OxygenLost(damage);
     }
 
     private void OnOxygenChanged(float currentOxygen, float maxHOxygen)
@@ -79,28 +68,6 @@ public class OxygenPresenter : MonoBehaviour
     }
     private void OnOxygenReceived(float oxygen)
     {
-        _oxygenModel.OxygenReceived(oxygen);
-    }
-    private void OnNewLife()
-    {
-        _oxygenModel.ResetOxygen();
-    }
-
-    private void OnLifeLost()
-    {
-        if (!GameInformation.GameOver)
-        {
-            GameInformation.Lives--;
-            if (GameInformation.Lives == 0)
-            {
-                GameInformation.GameOver = true;
-                _menus.ShowGameOver();
-            }
-            else
-            {
-                _text.text = GameInformation.Lives.ToString();
-                _menus.ShowDead();
-            }
-        }
+        _playerHealthSO.OxygenReceived(oxygen);
     }
 }
