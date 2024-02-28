@@ -11,25 +11,29 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Image _itemImage;
 
-    private ItemBucket _itemBucket;
-    public ItemBucket ItemBucket { get { return _itemBucket; } }
     public GameObject _selectedShader;
     public bool _thisItemSelected;
+    private int _index;
 
     private void OnEnable()
     {
-        EventManager.OnInventoryDeselect += OnInventoryDeselect;
+        InventoryEventManager.OnInventoryDeselect += OnInventoryDeselect;
     }
     private void OnDisable()
     {
-        EventManager.OnInventoryDeselect -= OnInventoryDeselect;
+        InventoryEventManager.OnInventoryDeselect -= OnInventoryDeselect;
     }
 
-    public void UpdateSlot(ItemBucket item)
+    public void OnCreation(Sprite itemImage, int quantity, int index)
     {
-        _itemBucket = item;
-        _quanityText.text = _itemBucket.Quantity.ToString();
-        _itemImage.sprite = _itemBucket.Item.Image;
+        _index = index;
+        UpdateSlot(itemImage, quantity);
+    }
+
+    public void UpdateSlot(Sprite itemImage, int quantity)
+    {
+        _quanityText.text = quantity.ToString();
+        _itemImage.sprite = itemImage;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -44,10 +48,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
     public void SelectSlot()
     {
-        EventManager.OnInventoryDeselect();
+        InventoryEventManager.OnInventoryDeselect();
         _selectedShader.SetActive(true);
         _thisItemSelected = true;
-        EventManager.RaiseOnInventorySelect(this);
+        InventoryEventManager.RaiseOnInventorySelect(_index);
     }
     public void OnInventoryDeselect()
     {
@@ -55,6 +59,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         _thisItemSelected = false;
     }
     public void OnRightClick()
+    {
+
+    }
+    public void OnDrag()
+    {
+
+    }
+    public void OnDrop()
     {
 
     }

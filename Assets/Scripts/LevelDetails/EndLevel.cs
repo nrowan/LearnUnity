@@ -7,7 +7,7 @@ public class EndLevel : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Player":
-                EventManager.RaiseOnLevelComplete();
+                LevelEventManager.RaiseOnLevelComplete();
                 break;
             default:
                 break;

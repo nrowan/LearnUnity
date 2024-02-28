@@ -14,7 +14,7 @@ public class ScoreSO : ScriptableObject
         set
         {
             _score = Mathf.Clamp(value, 0, _maxScore);
-            EventManager.RaiseOnScoreChanged(_score);
+            ScoreEventManager.RaiseOnScoreChanged(_score);
         }
     }
 

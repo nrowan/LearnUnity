@@ -22,14 +22,14 @@ public class ScorePresenter : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.OnScoreChanged += OnScoreChanged;
-        EventManager.OnScoreUpdated += OnScoreUpdated;
+        ScoreEventManager.OnScoreChanged += OnScoreChanged;
+        ScoreEventManager.OnScoreUpdated += OnScoreUpdated;
     }
 
     private void OnDisable()
     {
-        EventManager.OnScoreChanged -= OnScoreChanged;
-        EventManager.OnScoreUpdated -= OnScoreUpdated;
+        ScoreEventManager.OnScoreChanged -= OnScoreChanged;
+        ScoreEventManager.OnScoreUpdated -= OnScoreUpdated;
     }
 
     private void OnScoreChanged(int score)

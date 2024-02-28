@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Oxygen", menuName = "Oxygen", order = 0)]
+[CreateAssetMenu(fileName = "Oxygen", menuName = "Oxygen")]
 public class OxygenSO : ScriptableObject
 {
     [SerializeField]
@@ -15,10 +15,10 @@ public class OxygenSO : ScriptableObject
         {
             if (value < 1)
             {
-                EventManager.RaiseOnOxygenDepleted();
+                OxygenEventManager.RaiseOnOxygenDepleted();
             }
             _currentOxygen = Mathf.Clamp(value, 0, _fullOxygen);
-            EventManager.RaiseOnOxygenChanged(_currentOxygen, _fullOxygen);
+            OxygenEventManager.RaiseOnOxygenChanged(_currentOxygen, _fullOxygen);
         }
     }
 
@@ -31,7 +31,7 @@ public class OxygenSO : ScriptableObject
             _currentOxygen = Mathf.Max(Mathf.Clamp(_currentOxygen + max - _fullOxygen, 1, value),
                                         _currentOxygen);
             _fullOxygen = max;
-            EventManager.RaiseOnOxygenChanged(_currentOxygen, _fullOxygen);
+            OxygenEventManager.RaiseOnOxygenChanged(_currentOxygen, _fullOxygen);
         }
     }
 

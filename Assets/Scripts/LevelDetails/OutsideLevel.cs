@@ -21,7 +21,7 @@ public class OutsideLevel : MonoBehaviour
     {
         while (true)
         {
-            EventManager.OnOxygenLost(_oxygenDrain);
+            OxygenEventManager.OnOxygenLost(_oxygenDrain);
             yield return new WaitForSeconds(_drainSpeed);
         }
     }

@@ -37,13 +37,13 @@ public class MenusPresenter : MonoBehaviour
     private void OnEnable()
     {
         _playerActions.Player_Map.Enable();
-        EventManager.OnLevelComplete += LevelComplete;
+        LevelEventManager.OnLevelComplete += LevelComplete;
     }
 
     private void OnDisable()
     {
         _playerActions.Player_Map.Disable();
-        EventManager.OnLevelComplete -= LevelComplete;
+        LevelEventManager.OnLevelComplete -= LevelComplete;
     }
 
     private void HandleMenuClick()

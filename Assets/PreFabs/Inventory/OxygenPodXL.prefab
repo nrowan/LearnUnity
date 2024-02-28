@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9189969834280981400}
   - component: {fileID: 7886195181047161695}
   - component: {fileID: 5632946890220709460}
-  - component: {fileID: 8650796495709091217}
+  - component: {fileID: 1665682189461615278}
   m_Layer: 0
   m_Name: OxygenPodXL
   m_TagString: Item
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 7945400327974234067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.93, y: 1.523, z: 25.8}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8650796495709091217
+--- !u!114 &1665682189461615278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,11 +143,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7945400327974234067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c044a8985f84e28bfd789250c76427, type: 3}
+  m_Script: {fileID: 11500000, guid: c481c0369b08f4c6abe029684bf74c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _displayName: Oxygen Pod XL
-  _description: Restores 30 oxygen
+  _item: {fileID: 11400000, guid: c668c89625fc443bd9b12cd1976b86b7, type: 2}
   _quantity: 1
-  _itemImage: {fileID: 21300000, guid: ecdb209c826284c0ba281a00d711f93f, type: 3}
-  _itemName: 1

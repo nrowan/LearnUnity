@@ -32,16 +32,16 @@ public class OxygenPresenter : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.OnOxygenChanged += OnOxygenChanged;
-        EventManager.OnOxygenLost += OnOxygenLost;
-        EventManager.OnOxygenReceived += OnOxygenReceived;
+        OxygenEventManager.OnOxygenChanged += OnOxygenChanged;
+        OxygenEventManager.OnOxygenLost += OnOxygenLost;
+        OxygenEventManager.OnOxygenReceived += OnOxygenReceived;
     }
 
     private void OnDisable()
     {
-        EventManager.OnOxygenChanged -= OnOxygenChanged;
-        EventManager.OnOxygenLost -= OnOxygenLost;
-        EventManager.OnOxygenReceived -= OnOxygenReceived;
+        OxygenEventManager.OnOxygenChanged -= OnOxygenChanged;
+        OxygenEventManager.OnOxygenLost -= OnOxygenLost;
+        OxygenEventManager.OnOxygenReceived -= OnOxygenReceived;
     }
 
     private void OnOxygenLost(float damage)
