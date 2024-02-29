@@ -22,16 +22,7 @@ public class InventoryUI : MonoBehaviour
         _consumableButtonImage = _consumableButton.GetComponent<Image>();
         _equippableButtonImage = _equippableButton.GetComponent<Image>();
         _originalAlpha = _equippableButtonImage.color.a;
-    }
-    private void Start()
-    {
-        _consumableButton.onClick.AddListener(ShowConsumable);
-        _equippableButton.onClick.AddListener(ShowEquippables);
-        GetNewMenu();
-    }
-    private void GetNewMenu()
-    {
-                for (int i = 0; i < gameObject.transform.childCount; i++)
+        for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             if (gameObject.transform.GetChild(i).name == "InventoryMenu")
             {
@@ -41,6 +32,11 @@ public class InventoryUI : MonoBehaviour
                 break;
             }
         }
+    }
+    private void Start()
+    {
+        _consumableButton.onClick.AddListener(ShowConsumable);
+        _equippableButton.onClick.AddListener(ShowEquippables);
     }
 
     public void Show()
