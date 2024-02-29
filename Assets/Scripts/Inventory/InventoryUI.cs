@@ -58,7 +58,6 @@ public class InventoryUI : MonoBehaviour
         var slots = _inventorySlots.GetComponentsInChildren<ItemSlot>();
         if (index >= _slotLength)
         {
-            Debug.Log("New Slot");
             GameObject slotGO = Instantiate(ItemSlotPrefab, _inventorySlots.transform);
             ItemSlot slot = slotGO.GetComponent<ItemSlot>();
             slot.OnCreation(itemImage, quantity, index);
@@ -66,7 +65,6 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("update existing Slot");
             slots[index].UpdateSlot(itemImage, quantity);
         }
     }

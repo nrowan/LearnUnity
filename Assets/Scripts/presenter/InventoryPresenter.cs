@@ -54,7 +54,6 @@ public class InventoryPresenter : MonoBehaviour
         int index = _playerInventoryData.AddItem(item, quantity);
         if(item.ItemType == _currentItemType)
         {
-            Debug.Log("Update Slot" + index);
             InventoryItem? itemSO = _playerInventoryData.GetInventoryItem(item.ItemType, index);
             if(itemSO != null)
             {
