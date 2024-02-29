@@ -1,40 +1,42 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Inventory", menuName = "Inventory")]
 public class InventorySO : ScriptableObject
 {
     [SerializeField]
-    private Dictionary<ItemTypes, Dictionary<int, InventoryItem>> _inventoryItems = new Dictionary<ItemTypes, Dictionary<int, InventoryItem>>();
+    private ItemTypeHolder[] _inventoryItems = new ItemTypeHolder[] { };
+
     public int AddItem(ItemSO item, int quantity)
     {
         int foundIndex = -1;
-        Dictionary<int, InventoryItem> itemsOfType;
-        if (!_inventoryItems.TryGetValue(item.ItemType, out itemsOfType))
+        var itemsForType = GetItemsForType(item.ItemType);
+        if (itemsForType == null)
         {
-            _inventoryItems.Add(item.ItemType,
-                new Dictionary<int, InventoryItem>
+            var newInvHolder = new ItemTypeHolder
+            {
+                ItemType = item.ItemType,
+                Items = new[]
                 {
+                    new InventoryItem
                     {
-                        0,
-                        new InventoryItem
-                        {
-                            Item = item,
-                            Quantity = quantity
-                        }
+                        Item = item,
+                        Quantity = quantity
                     }
-                });
-            foundIndex = _inventoryItems[item.ItemType].Count - 1;
+                }
+            };
+            _inventoryItems = _inventoryItems.Append(newInvHolder).ToArray();
+            foundIndex = 0;
         }
         else
         {
             bool found = false;
-            for (int i = 0; i < itemsOfType.Count; i++)
+            for (int i = 0; i < itemsForType.Items.Length; i++)
             {
-                if (itemsOfType[i].Item.Id == item.Id)
+                if (itemsForType.Items[i].Item.Id == item.Id)
                 {
-                    itemsOfType[i] = itemsOfType[i].ChangeQuantity(quantity);
+                    itemsForType.Items[i] = itemsForType.Items[i].ChangeQuantity(quantity);
                     found = true;
                     foundIndex = i;
                     break;
@@ -42,47 +44,55 @@ public class InventorySO : ScriptableObject
             }
             if (!found)
             {
-                itemsOfType.Add(itemsOfType.Count, new InventoryItem
+                itemsForType.Items = itemsForType.Items.Append(new InventoryItem
                 {
                     Item = item,
                     Quantity = quantity
-                });
-                foundIndex = itemsOfType.Count - 1;
+                }).ToArray();
+                foundIndex = itemsForType.Items.Length - 1;
             }
         }
+        OutputAllItems();
         return foundIndex;
+    }
+
+    public ItemTypeHolder GetItemsForType(ItemTypes type)
+    {
+        foreach (var item in _inventoryItems)
+        {
+            if (item.ItemType == type)
+            {
+                return item;
+            }
+        }
+        return null;
     }
 
     public void OutputAllItems()
     {
-        foreach (KeyValuePair<ItemTypes, Dictionary<int, InventoryItem>> entry in _inventoryItems)
+        foreach (var typeItem in _inventoryItems)
         {
-            foreach (KeyValuePair<int, InventoryItem> subkey in _inventoryItems[entry.Key])
+            foreach (var item in typeItem.Items)
             {
-                Debug.Log(entry.Key + ": " + subkey.Key + ":" + subkey.Value.Item.DisplayName + ":" + subkey.Value.Quantity);
+                Debug.Log(typeItem.ItemType + ":" + item.Item.DisplayName + ":" + item.Quantity);
             }
         }
     }
-
-    public void ClearInventory()
+    public InventoryItem[] GetCurrentInventoryState(ItemTypes type)
     {
-        _inventoryItems.Clear();
+        var itemsForType = GetItemsForType(type)?.Items;
+        return itemsForType ?? new InventoryItem[] { };
     }
-    public Dictionary<int, InventoryItem> GetCurrentInventoryState(ItemTypes type)
+    public InventoryItem? GetInventoryItem(ItemTypes type, int index)
     {
-        Dictionary<int, InventoryItem> returnValue;
-        _inventoryItems.TryGetValue(type, out returnValue);
-        return returnValue ?? new Dictionary<int, InventoryItem>();
-    }
-    public InventoryItem GetInventoryItem(ItemTypes type, int index)
-    {
-        return _inventoryItems[type][index];
+        var itemsForType = GetItemsForType(type)?.Items;
+        return itemsForType != null ? itemsForType[index] : null;
     }
     public void SwapItems(ItemTypes type, int index1, int index2)
     {
-        InventoryItem item1 = _inventoryItems[type][index1];
+        /*InventoryItem item1 = _inventoryItems[type][index1];
         _inventoryItems[type][index1] = _inventoryItems[type][index2];
-        _inventoryItems[type][index2] = item1;
+        _inventoryItems[type][index2] = item1;*/
     }
 }
 
@@ -99,4 +109,11 @@ public struct InventoryItem
             Quantity = this.Quantity + newQuantity,
         };
     }
+}
+
+[Serializable]
+public class ItemTypeHolder
+{
+    public ItemTypes ItemType;
+    public InventoryItem[] Items;
 }

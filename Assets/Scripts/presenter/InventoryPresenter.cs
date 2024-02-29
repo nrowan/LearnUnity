@@ -11,7 +11,6 @@ public class InventoryPresenter : MonoBehaviour
     private void Awake()
     {
         _playerActions = new PlayerActions();
-        _playerInventoryData.ClearInventory();
     }
     private void Start()
     {
@@ -55,8 +54,12 @@ public class InventoryPresenter : MonoBehaviour
         int index = _playerInventoryData.AddItem(item, quantity);
         if(item.ItemType == _currentItemType)
         {
-            var itemSO = _playerInventoryData.GetInventoryItem(item.ItemType, index);
-            _inventoryUI.UpdateItemSlot(itemSO.Item.ItemImage, itemSO.Quantity, index);
+            Debug.Log("Update Slot" + index);
+            InventoryItem? itemSO = _playerInventoryData.GetInventoryItem(item.ItemType, index);
+            if(itemSO != null)
+            {
+                _inventoryUI.UpdateItemSlot(((InventoryItem)itemSO).Item.ItemImage, ((InventoryItem)itemSO).Quantity, index);
+            }
         }
     }
 
@@ -67,7 +70,7 @@ public class InventoryPresenter : MonoBehaviour
     {
         _inventoryUI.ClearItemSlots();
         var inventory = _playerInventoryData.GetCurrentInventoryState(_currentItemType);
-        for (int i = 0; i < inventory.Count; i++)
+        for (int i = 0; i < inventory.Length; i++)
         {
             var item = inventory[i];
             _inventoryUI.UpdateItemSlot(item.Item.ItemImage, item.Quantity, i);
@@ -82,8 +85,11 @@ public class InventoryPresenter : MonoBehaviour
     {
         if (index != null)
         {
-            var item = _playerInventoryData.GetInventoryItem(_currentItemType, (int)index);
-            _inventoryUI.UpdateItemDescription(item.Item.DisplayName, item.Item.Description, item.Item.ItemImage);
+            InventoryItem? item = _playerInventoryData.GetInventoryItem(_currentItemType, (int)index);
+            if(item != null)
+            {
+                _inventoryUI.UpdateItemDescription(((InventoryItem)item).Item.DisplayName, ((InventoryItem)item).Item.Description, ((InventoryItem)item).Item.ItemImage);
+            }
         }
         else
         {
