@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b3b1af61d82a40deba07c36a24d5a53, type: 3}
-  m_Name: PlayerOxygen
+  m_Script: {fileID: 11500000, guid: da32e2a89f2b744e99fe5fab80d03c77, type: 3}
+  m_Name: PlayerWarriorMovement
   m_EditorClassIdentifier: 
-  _fullOxygen: 100
-  _currentOxygen: 100
+  WalkSpeed: 10
+  RunSpeed: 15
+  TurnSmooth: 10
+  MaxJumpHeight: 4
+  MaxJumpCount: 3

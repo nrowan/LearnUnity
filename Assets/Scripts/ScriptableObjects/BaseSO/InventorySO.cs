@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Inventory", menuName = "Inventory")]
+[CreateAssetMenu(fileName = "InventoryManager", menuName = "Inventory/InventoryManager", order = 1)]
 public class InventorySO : ScriptableObject
 {
     [SerializeField]
@@ -52,7 +52,6 @@ public class InventorySO : ScriptableObject
                 foundIndex = itemsForType.Items.Length - 1;
             }
         }
-        OutputAllItems();
         return foundIndex;
     }
 

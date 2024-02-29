@@ -569,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bed0ce01f944d2a8b794938e5f0c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerMovementConfig: {fileID: 11400000, guid: d2ce92412913a4cb0b73b18aad9d66dd, type: 2}
 --- !u!114 &932975749196139176
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
             Ctx.RequireNewJumpPress = true;
         }
         Ctx.CurrentJumpResetRoutine = Ctx.StartCoroutine(IJumpResetRoutine());
-        if (Ctx.JumpCount == 3)
+        if (Ctx.JumpCount == Ctx.MaxJumpCount)
         {
             Ctx.JumpCount = 0;
             //Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
@@ -43,7 +43,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     void HandleJump()
     {
-        if (Ctx.JumpCount < 3 && Ctx.CurrentJumpResetRoutine != null)
+        if (Ctx.JumpCount < Ctx.MaxJumpCount && Ctx.CurrentJumpResetRoutine != null)
         {
             Ctx.StopCoroutine(Ctx.CurrentJumpResetRoutine);
         }

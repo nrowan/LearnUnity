@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    [SerializeField]
+    PlayerMovementSO _playerMovementConfig;
     // declare reference variables
     private CharacterController _characterController;
     public CharacterController CharacterController { get { return _characterController; } }
@@ -24,14 +26,10 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 _moveDirection;
     public Vector3 MoveDirection { get { return _moveDirection; } }
 
-    // constants
-    float _walkSpeed = 10.0f;
-    float _runSpeed = 15.0f;
-    private float _turnSmooth = 10.0f;
     int _zero = 0;
 
     // Jumping Variables
-    float _maxJumpHeight = 4.0f;
+    public int MaxJumpCount { get { return _playerMovementConfig.MaxJumpCount; } }
     float _maxJumpTime = .75f;
     bool _isJumpPressed = false;
     float _initialJumpVelocity;
@@ -53,8 +51,8 @@ public class PlayerStateMachine : MonoBehaviour
     public Coroutine CurrentJumpResetRoutine { get { return _currentJumpResetRoutine; } set { _currentJumpResetRoutine = value; } }
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
-    public float WalkSpeed { get { return _walkSpeed; } }
-    public float RunSpeed { get { return _runSpeed; } }
+    public float WalkSpeed { get { return _playerMovementConfig.WalkSpeed; } }
+    public float RunSpeed { get { return _playerMovementConfig.RunSpeed; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
     public int IsRunningHash { get { return _isRunningHash; } }
@@ -116,18 +114,18 @@ public class PlayerStateMachine : MonoBehaviour
         if (_isMovementPressed)
         {
             Quaternion targetRotation = Quaternion.LookRotation(_moveDirection);
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _turnSmooth * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, _playerMovementConfig.TurnSmooth * Time.deltaTime);
         }
     }
     void SetJumpVariables()
     {
         float timeToApex = _maxJumpTime / 2;
-        float initialGravity = (-2 * _maxJumpHeight) / Mathf.Pow(timeToApex, 2);
-        _initialJumpVelocity = (2 * _maxJumpHeight) / timeToApex;
-        float secondJumpGravity = (-2 * (_maxJumpHeight + 2)) / Mathf.Pow((timeToApex * 1.25f), 2);
-        float secondJumpInitialVelocity = (2 * (_maxJumpHeight + 2)) / (timeToApex * 1.25f);
-        float thirdJumpGravity = (-2 * (_maxJumpHeight + 4)) / Mathf.Pow((timeToApex * 1.5f), 2);
-        float thirdJumpInitialVelocity = (2 * (_maxJumpHeight + 4)) / (timeToApex * 1.5f);
+        float initialGravity = (-2 * _playerMovementConfig.MaxJumpHeight) / Mathf.Pow(timeToApex, 2);
+        _initialJumpVelocity = (2 * _playerMovementConfig.MaxJumpHeight) / timeToApex;
+        float secondJumpGravity = (-2 * (_playerMovementConfig.MaxJumpHeight + 2)) / Mathf.Pow((timeToApex * 1.25f), 2);
+        float secondJumpInitialVelocity = (2 * (_playerMovementConfig.MaxJumpHeight + 2)) / (timeToApex * 1.25f);
+        float thirdJumpGravity = (-2 * (_playerMovementConfig.MaxJumpHeight + 4)) / Mathf.Pow((timeToApex * 1.5f), 2);
+        float thirdJumpInitialVelocity = (2 * (_playerMovementConfig.MaxJumpHeight + 4)) / (timeToApex * 1.5f);
 
         _initialJumpVelocities.Add(1, _initialJumpVelocity);
         _initialJumpVelocities.Add(2, secondJumpInitialVelocity);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Oxygen", menuName = "Oxygen")]
+[CreateAssetMenu(fileName = "OxygenManager", menuName = "OxygenManager")]
 public class OxygenSO : ScriptableObject
 {
     [SerializeField]
