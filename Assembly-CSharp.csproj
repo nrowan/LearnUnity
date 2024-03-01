@@ -84,6 +84,7 @@
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerIdleState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/EnemyStateFactory.cs" />
     <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/PlayerMovementSO.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/EnemyMovementSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyChaseState.cs" />
     <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/InventorySO.cs" />
     <Compile Include="Assets/Scripts/Inventory/InventoryUI.cs" />

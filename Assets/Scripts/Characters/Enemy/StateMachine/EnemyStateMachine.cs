@@ -5,36 +5,21 @@ using UnityEngine.AI;
 
 public class EnemyStateMachine
 {
+    EnemyMovementSO _enemyMovement;
     GameObject _myGameObject;
     Transform _myTransform;
     Transform _playerTransform;
     NavMeshAgent _agent;
-    float _rotationSpeed;
-    float _walkSpeed;
-    float _chaseSpeed;
-    float _patrolingSpeed;
-    float _patrolRadius;
-    float _attackDistance;
-    float _visionDistance;
-    float _awareDistance;
 
     TextMeshPro _text;
 
-    public EnemyStateMachine(GameObject gameObject, Transform myTransform, Transform player, NavMeshAgent agent, float walkSpeed, float chaseSpeed, float patrolingSpeed,
-        float patrolingRadius, float rotationSpeed, float attackDistance, float visionDistance, float awareDistance)
+    public EnemyStateMachine(GameObject gameObject, Transform myTransform, Transform player, NavMeshAgent agent, EnemyMovementSO enemyMovementSO)
     {
         _myGameObject = gameObject;
         _myTransform = myTransform;
         _playerTransform = player;
         _agent = agent;
-        _walkSpeed = walkSpeed;
-        _chaseSpeed = chaseSpeed;
-        _patrolingSpeed = patrolingSpeed;
-        _patrolRadius = patrolingRadius;
-        _rotationSpeed = rotationSpeed;
-        _attackDistance = attackDistance;
-        _visionDistance = visionDistance;
-        _awareDistance = awareDistance;
+        _enemyMovement = enemyMovementSO;
 
         // setup state
         _states = new EnemyStateFactory(this);
@@ -49,11 +34,11 @@ public class EnemyStateMachine
     public Transform MyTransform { get { return _myTransform; } set { _myTransform = value; } }
     public NavMeshAgent Agent { get { return _agent; } }
     public Transform Player { get { return _playerTransform; } }
-    public float RotationSpeed { get { return _rotationSpeed; } }
+    public float RotationSpeed { get { return _enemyMovement.RotationSpeed; } }
 
-    public float PatrolingSpeed { get { return _patrolingSpeed; } }
-    public float PatrolRadius { get { return _patrolRadius; } }
-    public float WalkSpeed { get { return _walkSpeed; } }
+    public float PatrolingSpeed { get { return _enemyMovement.PatrolingSpeed; } }
+    public float PatrolRadius { get { return _enemyMovement.PatrolRadius; } }
+    public float WalkSpeed { get { return _enemyMovement.WalkSpeed; } }
 
     bool _isPlayerInAwareRange = false;
     bool _isPlayerInFront = false;
@@ -65,10 +50,10 @@ public class EnemyStateMachine
     public Vector3 PlayerLastLocation { get { return _playerLastLocation; } }
     bool _isChasing = false;
     public bool IsChasing { get { return _isChasing; } set { _isChasing = value; } }
-    public float ChaseSpeed { get { return _chaseSpeed; } }
+    public float ChaseSpeed { get { return _enemyMovement.ChaseSpeed; } }
     bool _isAttacking = false;
     public bool IsAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
-    public float AttackDistance { get { return _attackDistance; } }
+    public float AttackDistance { get { return _enemyMovement.AttackDistance; } }
     bool _isHunting = false;
     public bool IsHunting { get { return _isHunting; } set { _isHunting = value; } }
 
@@ -99,7 +84,7 @@ public class EnemyStateMachine
         int layerId = 3;
         int layerMask = 1 << layerId;
         // Find if player collider is near enemy by overlapsphere
-        Collider[] hitColliders = Physics.OverlapSphere(_myTransform.position, _awareDistance, layerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(_myTransform.position, _enemyMovement.AwareDistance, layerMask);
         if (hitColliders.Length != 0)
         {
             _isPlayerInAwareRange = true;
@@ -111,8 +96,8 @@ public class EnemyStateMachine
                 // Can enemy see player using a ray. This will account for objects in the way and distance of vision
                 Ray ray = new Ray(_myEyeTransform.position, toTarget);
                 RaycastHit hitData;
-                Physics.Raycast(ray, out hitData, _visionDistance);
-                Debug.DrawRay(ray.origin, ray.direction * _visionDistance);
+                Physics.Raycast(ray, out hitData, _enemyMovement.VisionDistance);
+                Debug.DrawRay(ray.origin, ray.direction * _enemyMovement.VisionDistance);
                 if (hitData.collider != null && hitData.collider.tag == "Player")
                 {
                     _isPlayerInVision = true;

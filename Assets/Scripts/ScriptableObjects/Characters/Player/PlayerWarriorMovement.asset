@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da32e2a89f2b744e99fe5fab80d03c77, type: 3}
   m_Name: PlayerWarriorMovement
   m_EditorClassIdentifier: 
-  WalkSpeed: 10
-  RunSpeed: 15
-  TurnSmooth: 10
-  MaxJumpHeight: 4
-  MaxJumpCount: 3
+  <WalkSpeed>k__BackingField: 10
+  <RunSpeed>k__BackingField: 15
+  <TurnSmooth>k__BackingField: 10
+  <MaxJumpHeight>k__BackingField: 4
+  <MaxJumpCount>k__BackingField: 1

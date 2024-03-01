@@ -311,14 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b354546531d840d2a0eca5f4d7eafc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 200
-  _walkSpeed: 3
-  _chaseSpeed: 5
-  _patrolingSpeed: 10
-  _patrolRadius: 10
-  _awareDistance: 50
-  _visionDistance: 20
-  _attackDistance: 6
+  _enemyMovement: {fileID: 11400000, guid: ce2c049b93a5248f991739d177ce3e2b, type: 2}
 --- !u!1 &4275925924077055836
 GameObject:
   m_ObjectHideFlags: 0
