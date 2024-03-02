@@ -68,10 +68,13 @@
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerStateFactory.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyIdleState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyAttackState.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/Inventory/ItemSO.cs" />
     <Compile Include="Assets/Scripts/EventManagers/LevelEventManager.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyHuntState.cs" />
+    <Compile Include="Assets/Scripts/Inventory/MouseFollower.cs" />
     <Compile Include="Assets/Scripts/Inventory/ItemGO.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyBaseState.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/Inventory/EquippableItemSO.cs" />
     <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/ScoreSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerBaseState.cs" />
     <Compile Include="Assets/Scripts/EventManagers/ScoreEventManager.cs" />
@@ -86,7 +89,6 @@
     <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/PlayerMovementSO.cs" />
     <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/EnemyMovementSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyChaseState.cs" />
-    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/InventorySO.cs" />
     <Compile Include="Assets/Scripts/Inventory/InventoryUI.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/Level1.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerFallState.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerWalkState.cs" />
     <Compile Include="Assets/Scripts/Inventory/InventoryType.cs" />
     <Compile Include="Assets/Scripts/Characters/Shared/GravityHelper.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/Inventory/InventorySO.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerRunState.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/EnemyMartian.cs" />
     <Compile Include="Assets/Scripts/Characters/Player/StateMachine/PlayerStateMachine.cs" />
@@ -103,14 +106,14 @@
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/EnemyStateMachine.cs" />
     <Compile Include="Assets/Scripts/Inventory/ItemDescription.cs" />
     <Compile Include="Assets/Scripts/presenter/ScorePresenter.cs" />
-    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/ItemSO.cs" />
     <Compile Include="Assets/Scripts/EventManagers/OxygenEventManager.cs" />
     <Compile Include="Assets/Scripts/EventManagers/InventoryEventManager.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/Inventory/ConsumableItemSO.cs" />
     <Compile Include="Assets/Scenes/MainMenu.cs" />
+    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/OxygenManagerSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Enemy/StateMachine/States/EnemyPatrolingState.cs" />
     <Compile Include="Assets/Scripts/LevelDetails/OutsideLevel.cs" />
     <Compile Include="Assets/Scripts/presenter/OxygenPresenter.cs" />
-    <Compile Include="Assets/Scripts/ScriptableObjects/BaseSO/OxygenSO.cs" />
     <Compile Include="Assets/Scripts/Characters/Shared/IRootState.cs" />
   </ItemGroup>
   <ItemGroup>

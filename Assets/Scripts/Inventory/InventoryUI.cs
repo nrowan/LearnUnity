@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    [SerializeField]
+    public MouseFollower _mouseFollower;
     private bool _inventoryOpen = false;
     public bool InventoryOpen { get { return _inventoryOpen; } }
     private GameObject _inventoryMenu;
@@ -32,13 +34,22 @@ public class InventoryUI : MonoBehaviour
                 break;
             }
         }
+        _mouseFollower.Toggle(false);
     }
     private void Start()
     {
         _consumableButton.onClick.AddListener(ShowConsumable);
         _equippableButton.onClick.AddListener(ShowEquippables);
     }
+    private void OnEnable()
+    {
+        InventoryEventManager.OnItemEndDrag += OnItemEndDrag;
+    }
 
+    private void OnDisable()
+    {
+        InventoryEventManager.OnItemEndDrag -= OnItemEndDrag;
+    }
     public void Show()
     {
         _inventoryOpen = true;
@@ -100,5 +111,15 @@ public class InventoryUI : MonoBehaviour
         tempColor.a = _originalAlpha;
         _consumableButtonImage.color = tempColor;
         InventoryEventManager.RaiseOnInventoryTypeChange(ItemTypes.Equippable);
+    }
+
+    public void CreateDraggedItem(Sprite itemImage, int quantity)
+    {
+        _mouseFollower.Toggle(true);
+        _mouseFollower.SetData(itemImage, quantity);
+    }
+    public void OnItemEndDrag()
+    {
+        _mouseFollower.Toggle(false);
     }
 }

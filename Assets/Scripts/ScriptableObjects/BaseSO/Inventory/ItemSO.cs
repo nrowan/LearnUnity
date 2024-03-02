@@ -4,8 +4,6 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     [field: SerializeField]
-    public ItemTypes ItemType { get; set; }
-    [field: SerializeField]
     public bool IsStackable { get; set; } = true;
     public int Id => GetInstanceID();
     [field: SerializeField]
@@ -17,4 +15,20 @@ public class ItemSO : ScriptableObject
     public string Description { get; set; }
     [field: SerializeField]
     public Sprite ItemImage { get; set; }
+
+    public ItemTypes ItemType { get; set; }
+
+    public ItemSO(ItemTypes itemType)
+    {
+        ItemType = itemType;
+    }
+}
+public interface IDestropyableItem
+{
+
+}
+public interface IItemAction
+{
+    public string ActionName { get; }
+    public bool PerformAction(GameObject character);
 }

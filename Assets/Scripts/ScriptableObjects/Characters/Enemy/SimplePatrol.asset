@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a40929a8237419b9184b910d4fc018, type: 3}
   m_Name: SimplePatrol
   m_EditorClassIdentifier: 
-  RotationSpeed: 0
-  WalkSpeed: 0
-  ChaseSpeed: 0
-  PatrolingSpeed: 0
-  PatrolRadius: 0
-  AwareDistance: 0
-  VisionDistance: 0
-  AttackDistance: 0
+  <WalkSpeed>k__BackingField: 0
+  <ChaseSpeed>k__BackingField: 0
+  <PatrolingSpeed>k__BackingField: 0
+  <PatrolRadius>k__BackingField: 0
+  <AwareDistance>k__BackingField: 0
+  <VisionDistance>k__BackingField: 0
+  <AttackDistance>k__BackingField: 0
+  <RotationSpeed>k__BackingField: 0

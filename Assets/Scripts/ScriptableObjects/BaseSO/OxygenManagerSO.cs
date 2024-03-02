@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "OxygenManager", menuName = "OxygenManager")]
-public class OxygenSO : ScriptableObject
+public class OxygenManagerSO : ScriptableObject
 {
     [SerializeField]
     private float _fullOxygen = 100.0f;

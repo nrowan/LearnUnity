@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class OxygenPresenter : MonoBehaviour
 {
     [SerializeField]
-    private OxygenSO _playerHealthSO;
+    private OxygenManagerSO _playerHealthSO;
     private Slider _oxygenSlider;
     private Image _sliderFill;
     private Color _sliderFillOC;

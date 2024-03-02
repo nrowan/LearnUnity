@@ -7,6 +7,7 @@ public class InventoryPresenter : MonoBehaviour
     InventoryUI _inventoryUI;
     private PlayerActions _playerActions;
     private ItemTypes _currentItemType = ItemTypes.Consumable;
+    private int _itemDragIndex = -1;
 
     private void Awake()
     {
@@ -24,6 +25,8 @@ public class InventoryPresenter : MonoBehaviour
         InventoryEventManager.OnItemAdded += AddItem;
         InventoryEventManager.OnInventorySelect += OnInventorySelect;
         InventoryEventManager.OnInventoryTypeChange += OnInventoryTypeChange;
+        InventoryEventManager.OnItemBeginDrag += HandleItemDrag;
+        InventoryEventManager.OnItemDropOn += HandleItemDrop;
     }
 
     private void OnDisable()
@@ -32,6 +35,8 @@ public class InventoryPresenter : MonoBehaviour
         InventoryEventManager.OnItemAdded -= AddItem;
         InventoryEventManager.OnInventorySelect -= OnInventorySelect;
         InventoryEventManager.OnInventoryTypeChange -= OnInventoryTypeChange;
+        InventoryEventManager.OnItemBeginDrag -= HandleItemDrop;
+        InventoryEventManager.OnItemDropOn -= HandleItemDrop;
     }
     /// <summary>
     /// Show Hide inventory
@@ -95,19 +100,26 @@ public class InventoryPresenter : MonoBehaviour
             _inventoryUI.UpdateItemDescription("", "", Resources.Load<Sprite>("EmptySlot"));
         }
     }
-    private void OnInventoryItemDrag(int index)
-    {
-
-    }
-    private void OnInventoryItemSwap(int index1, int index2)
-    {
-        _playerInventoryData.SwapItems(_currentItemType, index1, index2);
-        ReplaceItemSlots();
-    }
 
     private void OnInventoryTypeChange(ItemTypes type)
     {
         _currentItemType = type;
+        ReplaceItemSlots();
+    }
+
+    private void HandleItemDrag(int index)
+    {
+        _itemDragIndex = index;
+        InventoryItem? item = _playerInventoryData.GetInventoryItem(_currentItemType, index);
+        _inventoryUI.CreateDraggedItem(((InventoryItem)item).Item.ItemImage, ((InventoryItem)item).Quantity);
+    }
+    private void HandleItemDrop(int index)
+    {
+        if(_itemDragIndex == -1) return;
+
+        _playerInventoryData.SwapItems(_currentItemType, index, _itemDragIndex);
+        _inventoryUI.OnItemEndDrag();
+        _itemDragIndex = -1;
         ReplaceItemSlots();
     }
 }

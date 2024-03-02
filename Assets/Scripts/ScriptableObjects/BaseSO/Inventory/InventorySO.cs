@@ -89,9 +89,13 @@ public class InventorySO : ScriptableObject
     }
     public void SwapItems(ItemTypes type, int index1, int index2)
     {
-        /*InventoryItem item1 = _inventoryItems[type][index1];
-        _inventoryItems[type][index1] = _inventoryItems[type][index2];
-        _inventoryItems[type][index2] = item1;*/
+        var itemsForType = GetItemsForType(type);
+        if (itemsForType != null)
+        {
+            InventoryItem item1 = itemsForType.Items[index1];
+            itemsForType.Items[index1] = itemsForType.Items[index2];
+            itemsForType.Items[index2] = item1;
+        }
     }
 }
 

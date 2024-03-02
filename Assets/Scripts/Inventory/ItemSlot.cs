@@ -8,8 +8,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // Item Slot
     [SerializeField]
     private TMP_Text _quanityText;
+    private int _quantity;
+    public int Quantity { get { return _quantity; } }
     [SerializeField]
     private Image _itemImage;
+    public Image ItemImage { get { return _itemImage; } }
 
     public GameObject _selectedShader;
     public bool _thisItemSelected;
@@ -32,6 +35,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void UpdateSlot(Sprite itemImage, int quantity)
     {
+        _quantity = quantity;
         _quanityText.text = quantity.ToString();
         _itemImage.sprite = itemImage;
     }
@@ -62,12 +66,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
 
     }
-    public void OnDrag()
+    public void OnBeginDrag()
     {
-
+        InventoryEventManager.RaiseOnItemBeginDrag(this._index);
+    }
+    public void OnEndDrag()
+    {
+        InventoryEventManager.RaiseOnItemEndDrag();
     }
     public void OnDrop()
     {
-
+        InventoryEventManager.RaiseOnItemDropOn(this._index);
     }
 }
